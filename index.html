@@ -4,9 +4,31 @@
         <title>Korey's Website</title>
         <meta charset="UTF-8">
         <meta name="description" content="Korey's Personnal Website">
-        <meta name="keywords" content="HTML, CSS, JavaScript, Index, Home, Homepage">
+        <meta name="keywords" content="HTML, CSS, Home, Homepage">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            nav {
+                margin:0;
+                padding:0;
+                overflow:hidden;
+                background-color:purple;
+                border-radius:50%;
+                display: flex;
+            }
+            nav a{
+                flex: 1;
+                color:white;
+                text-align:center;
+                padding:2% 3%;
+                text-decoration:none;
+                font-size:xx-large;
+            }
+            nav a:hover{
+                background-color:#DDD;
+                color:black;
+            }
+        </style>
     </head>
     <body>
         <h1>Welcome to my Blog!</h1>
@@ -47,8 +69,8 @@
         <h2>
             Flights from Montreal
         </h2>
-        <table border=1 style="width:100%;">
-            <tr>
+        <table border=1 style="width:100%;text-align:center;">
+            <tr style="background-color:aqua;">
                 <th>Date</th>
                 <th>Flying From</th>
                 <th>Flying To</th>
@@ -78,7 +100,7 @@
                 <td>4,652$</td>
                 <td>Air Canada</td>
             </tr>
-            <tr>
+            <tr style="font-family:papyrus, fantasy;">
                 <td>Sept. 30 2025</td>
                 <td>   
                     <ol>
@@ -110,9 +132,8 @@
         </table>
         <hr>
         <nav>
-            <a href="my_vacation.html">
-                <img src="airplane.jpg" alt="Boarding Airplane to go on Vacation!" title="Hop on a plane!" style="width:10%;display:block;margin-left:auto;margin-right:auto;">
-            </a>
+            <a href="my_vacation.html">My Dream Vacation!</a>
+            <a href="my_artistic_self.html">My Artistic Side!</a>
         </nav>
     </body>
 </html>

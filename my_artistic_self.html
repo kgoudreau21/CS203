@@ -7,8 +7,9 @@
         <meta name="keywords" content="HTML, CSS, Art, Artistic Side">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="my_style.css">
         <style>
-            body {
+            body { /*background image & color*/
                 background-image:url('pillsburyArt.jpg');
                 background-repeat:no-repeat;
                 background-attachment:fixed;
@@ -16,28 +17,23 @@
                 background-position:center;
                 background-color:maroon;
                 color:aliceblue;
-                text-shadow: 2px 2px black;
+                text-shadow: 5px 5px black; /*gave all txt on page a cool txt shadow effect*/
             }
-            a {
-                background-color:white;
-                text-shadow:none;
-                border-radius:5px;
-                padding:5% 5%;
-                font-size:50px;
-            }
-            h1, div {
+            h1 { /*centering headers*/
                 text-align:center;
                 margin:auto;
                 width:50%;
                 padding:50px;
             }
-            h2 {
+            h2 { /*centering & adding background to create txt bubbles*/
                 text-align:center;
                 margin:auto;
                 width:50%;
                 color:magenta;
                 background-color:pink;
             }
+
+            /*Keyword CSS code*/
             .keyword {
                 font-family:"Lucida Console", "Courier New", monospace;
             }
@@ -45,7 +41,7 @@
                 font-size:xx-large;
                 color:rgb(0, 248, 54);
                 position:fixed;
-                bottom:105px;
+                bottom:375px;
                 left:40%;
             }
             #keyword2 {
@@ -86,25 +82,44 @@
         </style>
     </head>
     <body>
-        <h1>This corner is for Self Expression!</h1>
-        <p id="keyword1" class="keyword">Hardworking</p>
-        <p id="keyword2" class="keyword">Introspective</p>
-        <p id="keyword3" class="keyword">Creative</p>
-        <p id="keyword4" class="keyword">Perseverant</p>
-        <p id="keyword5" class="keyword">Honest</p>
-        <h2>
-            The following artwork is a drawing I made for my high school art class.<br>
-            I thought it would be fun to throw in since I already had the png file saved.<br>
-            I can't say I have drawn much of anything since this piece I made many years ago.<br>
-            Does that mean I am not creative?<br>
-            I disagree!<br>
-            Rather I have been channeling my creativity in other ways.<br>
-            This page being proof!<br>
-            I believe in my ability for change and progress.<br>
-            This is why I am working hard to become the very person I aspire to be.<br>
-        </h2>
-        <div>
-            <a href="index.html">Home</a>
+
+        <div class="body_wrapper">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="my_vacation.html">My Dream Vacation!</a>
+                <a class="current_page" href="my_artistic_self.html">My Artistic Side!</a>
+            </nav>
+            <h1>This corner is for Self Expression!</h1>
         </div>
+
+        <div class="body_wrapper">
+            <p id="keyword1" class="keyword">Hardworking</p>
+            <p id="keyword2" class="keyword">Introspective</p>
+            <p id="keyword3" class="keyword">Creative</p>
+            <p id="keyword4" class="keyword">Perseverant</p>
+            <p id="keyword5" class="keyword">Honest</p>
+        </div>
+
+        <div class="body_wrapper">
+            <h2>
+                The following artwork is a drawing I made for my high school art class.<br>
+                I thought it would be fun to throw in since I already had the png file saved.<br>
+                I can't say I have drawn much of anything since this piece I made many years ago.<br>
+                Does that mean I am not creative?<br>
+                I disagree!<br>
+                Rather I have been channeling my creativity in other ways.<br>
+                This page being proof!<br>
+                I believe in my ability for change and progress.<br>
+                This is why I am working hard to become the very person I aspire to be.<br>
+            </h2>
+            <br>
+            <a href="index.html">Home</a>
+            <br>
+        </div>
+
+        <footer>
+            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
+        </footer>
+
     </body>
 </html>

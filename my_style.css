@@ -1,0 +1,101 @@
+/*class to center text*/
+    .center {
+        justify-content:center;
+        text-align:center;
+        margin:auto;
+    }
+
+
+/*Styling for footer*/
+    footer {
+        display:flex;
+        align-items:center; /*Vertically center*/
+        justify-content:center; /*Horizontally center*/
+        background-color:greenyellow;
+        color:darkgreen;
+        height:1em;
+    }
+    .body_wrapper { /*class for main <div> elements that are seperate from footer element*/
+        box-sizing:border-box;
+        min-height:100%;
+        display:flex;
+        flex-direction:column;
+    }
+    html, body {
+        box-sizing:border-box;
+        min-height:100%;
+    }
+
+/*styling links*/
+    a {
+        text-shadow:none;
+        font-size:1.5em;
+    }
+    a:link {
+        color:blue;
+    }
+    a:visited {
+        color:crimson;
+    }
+    a:hover {
+        color:black;
+    }
+    a:not(nav a){ /*Styling for links not inside <nav> menu*/
+        margin:auto;
+        background-color:white;
+        text-align:center;
+        border-radius:0.5em;
+    }
+
+
+/*<nav> menu*/
+    .current_page { /*class assigned to website currently on*/
+        background-color: cyan;
+    }
+    nav { 
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        background-color:purple;
+        border-radius:50%;
+        display: flex;
+    }
+    nav a{
+        flex: 1;
+        text-align:center;
+        padding:2% 3%;
+        text-decoration:none;
+        font-size:2em;
+    }
+    nav a:hover{
+        background-color:#DDD;
+    }
+
+
+/*Scrollbar stuff*/
+    ::-webkit-scrollbar {
+    width:1em; /*scrollbar width*/
+    }
+
+    ::-webkit-scrollbar-button { /*button on top and bottom*/
+    background-color:purple;
+    border-radius:1em;
+    height:1em;
+    width:1em;
+    border:0.15em solid black;
+    }
+
+    ::-webkit-scrollbar-thumb { /*draggable part*/
+    background:black;
+    border-radius:1em;
+    border:0.15em solid black;
+    }
+
+    ::-webkit-scrollbar-track { /*background of scrollbar*/
+    background-color:white;
+    border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {/*hover on the draggable part*/
+    background:purple;
+    }

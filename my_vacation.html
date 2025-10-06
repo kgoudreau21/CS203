@@ -7,20 +7,39 @@
         <meta name="keywords" content="HTML, CSS, Vacation">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="my_style.css">
     </head>
-    <body style="width:fit-content; margin:auto; background-image:url('vacationBackground.jpg'); background-repeat:no-repeat; background-attachment:fixed; background-size:100%;">
-        <div style="text-align:center;">
+
+    <body style="margin:auto; background-image:url('vacationBackground.jpg'); background-repeat:no-repeat; background-attachment:fixed; background-size:100%;">
+        
+        <div class="body_wrapper">
+            <nav>
+                <a href="index.html">Home</a>
+                <a class="current_page" href="my_vacation.html">My Dream Vacation!</a>
+                <a href="my_artistic_self.html">My Artistic Side!</a>
+            </nav>
+        </div>
+
+        <div class="body_wrapper" style="text-align:center;">
             <h1 style="color:white;">
                 Welcome to Hawaii!!!
             </h1>
-            <img src="coconutDrink.jpg" alt="A coconut drink with a little umbrella in it." title="So Refreshing!" style="width:50%; border:5px solid blue; border-radius:5px;">
+            <img class="center" src="coconutDrink.jpg" alt="A coconut drink with a little umbrella in it." title="So Refreshing!" style="width:40%; border:0.5em solid blue; border-radius:1em;">
         </div>
-        <footer style="position:fixed; bottom:0; display:flex">
+
+        <div class="body_wrapper" style="text-align:center;">
             <h1 style="color:black;">Board a Plane Back Home:
                 <a href="index.html">
-                    <img src="airplane.jpg" alt="Boarding Airplane to go back Home" title="Time to go back home..." style="width:10%; border-radius:5px;">
+                    <img src="airplane.jpg" alt="Boarding Airplane to go back Home" title="Time to go back home..." style="width:10%; border-radius:0.5em;">
                 </a>
             </h1>
+            <a class=”center” href="index.html">Link to Homepage</a>
+            <br>
+        </div>
+
+        <footer>
+            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
         </footer>
+
     </body>
 </html>

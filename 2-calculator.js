@@ -65,29 +65,26 @@ function compute_circle(){
 
 function check_palindrome(){
     const text_input = get_palindrome();
+
+    //create new string from text input, easier way to check palindrome
+    let temp_text = text_input.replace(' ', '') // get rid of all spaces
+    temp_text = text_input.toLowerCase(); //Turn all characters from upper to lowercase
     
     //will be set to true if input is a palindrome
     let is_palindrome = false;
 
     /*
     Continue for loop while text looks like a palindrome, otherwise break for loop
-    Compares first character with last in string, moving to second and second last, etc...
+    Compares first character with last in string, then compare second and second last, etc...
+    Ends after these two comparison characters cross each other
     */
-    for(let x = 0, y = (text_input.length-1); x <= y; x++, y--){
-
-        //Ignore spaces, skip over them
-        if(text_input[x] === " ")
-            x++;
-        if(text_input[y] === " ")
-            y--;
-
-        //Made it so that if one character is lower case and one is uppercase it is still palindrome
-        if(text_input[x] === text_input[y] || text_input[x].toUpperCase() === text_input[y] || text_input[x].toLowerCase() === text_input[y]){
-            if(x+1 >= y)
+    for(let x = 0, y = (temp_text.length-1); x <= y; x++, y--){
+        if(temp_text[x] === temp_text[y]){
+            if(x+1 >= y) //happens right before for loop ends
                 is_palindrome = true;
         }
-        else{
-            x=y;
+        else{ //if characters don't match then end for loop
+            x=y+1;
         }
     }
 

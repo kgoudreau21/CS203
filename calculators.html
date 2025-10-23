@@ -8,6 +8,11 @@
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="my_style.css">
+        <script src="nav.js"></script>
+        <script>
+                const current_path = location.pathname;
+                setNav(current_path);
+        </script>
 
         <a href="2-calculator.js">Link to 2-calculators</a><br>
         <a href="2-calculator_utils.js">Link to 2-calculators_utils</a>
@@ -41,13 +46,7 @@
     <body>
 
         <div class="body_wrapper">
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="my_vacation.html">My Dream Vacation!</a>
-                <a href="my_artistic_self.html">My Artistic Side!</a>
-                <a href="marketplace.html">MarketPlace</a>
-                <a class="current_page" href="calculators.html">Calculators</a>
-            </nav>
+            <nav id="main-nav"></nav>
         </div>
 
         <h1> Some calculators! </h1>

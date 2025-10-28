@@ -84,7 +84,7 @@ function check_palindrome(){
                 is_palindrome = true;
         }
         else{ //if characters don't match then end for loop
-            x=y+1;
+            break;
         }
     }
 

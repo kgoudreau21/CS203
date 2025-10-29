@@ -1,0 +1,38 @@
+.slideshow{
+    position: relative;
+
+    /*set width*/
+    width:70%;
+}
+
+.slideshow a{
+    /*style color and text shadow for all anchor elements*/
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+    color: black;
+
+    /*position is relative to parent*/
+    position: absolute;
+}
+
+.slideshow_img img{ /*make image in slideshow as large as parent*/
+    width:100%;
+}
+
+#next{
+    /*position next to right middle of photo*/
+    right:1em;
+    top:50%
+}
+
+#previous{
+    /*position previous to left middle of photo*/
+    left: 1em;
+    top:50%
+}
+
+/*If screen smaller then 800px: decrease "previous: and "next" font size*/
+@media screen and (max-width: 800px) {
+    #next, #previous{
+        font-size:10px;
+    }
+}

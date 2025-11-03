@@ -2,9 +2,11 @@
     .center {
         justify-content:center;
         text-align:center;
-        margin:auto;
     }
 
+body{
+    margin:auto;
+}
 
 /*Styling for footer*/
     footer {
@@ -14,6 +16,7 @@
         background-color:greenyellow;
         color:darkgreen;
         height:1em;
+        width:100%;
     }
     .body_wrapper { /*class for main <div> elements that are seperate from footer element*/
         box-sizing:border-box;

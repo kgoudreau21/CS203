@@ -4,15 +4,21 @@
         <title>Korey's Website</title>
         <meta charset="UTF-8">
         <meta name="description" content="Korey's Personnal Website">
-        <meta name="keywords" content="HTML, CSS, Home, Homepage">
+        <meta name="keywords" content="HTML, CSS, Javascript, Home, Homepage">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="my_style.css">
+
+        <!--Stylesheet for lab7 slideshow class-->
+        <link rel="stylesheet" type="text/css" href="slideshow.css">
+
+        <!--Setup for nav-->
         <script src="nav.js"></script>
         <script>
                 const current_path = location.pathname;
                 setNav(current_path);
         </script>
+
     </head>
     <body style="background-color:khaki;">
 
@@ -38,6 +44,26 @@
                 While I'm &commat; it I guess I thought it would be cool to make this a personnal blog.<br>
             </p>
         </div>
+
+        <div class="body_wrapper">
+            <div class="slideshow">
+                <div class="slideshow_img" >
+                    <img src="images/slide1.jpg" alt="image of lake with cherryblossoms">
+                </div>
+
+                <div class="slideshow_img" >
+                    <img src="images/slide2.jpg" alt="image of green mountains with lake and trees">
+                </div>
+
+                <div class="slideshow_img" >
+                    <img src="images/slide3.jpg" alt="image of lake with mountain range in background">
+                </div>
+                
+                <a id="previous" title="click for next image" onclick="previous()">&larr; Previous</a>
+                <a id="next" title="click for previous image" onclick="next()">Next &rarr;</a>
+            </div>
+        </div>
+        
         <hr>
         <div class="body_wrapper">
             <p>
@@ -133,5 +159,7 @@
             <p>This Website was made &amp; Bishops University CS203 Labs!</p>
         </footer>
 
+        <!--JS Code for div with class="slideshow"-->
+        <script src="slideshow.js"></script>
     </body>
 </html>

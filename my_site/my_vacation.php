@@ -8,17 +8,18 @@
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="my_style.css">
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
+        
+        <?php
+            include_once("nav.php");
+        ?>
     </head>
 
     <body style="background-image:url('images/vacationBackground.jpg'); background-repeat:no-repeat; background-attachment:fixed; background-size:100%;">
         
         <div class="body_wrapper">
-            <nav id="main-nav"></nav>
+            <?php
+                $webpage->setNav();
+            ?>
         </div>
 
         <div class="body_wrapper" style="text-align:center;">
@@ -41,9 +42,9 @@
             <br>
         </div>
 
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
 
     </body>
 </html>

@@ -17,12 +17,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
 
-        <!--Setup Nav-->
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
+        <?php
+            include_once("nav.php");
+        ?>
 
         <style>
             body { /*background image*/
@@ -94,13 +91,15 @@
         </style>
     </head>
     <body>
-        <nav id="main-nav"></nav>
+        <?php
+            $webpage->setNav();
+        ?>
         
         <div class="body_wrapper">
             <article class="oldPaper">
                 <h1>Intro To My Questionaire:</h1>
                 <p>I got the idea from "Avatar: The Last Airbender". In this show people are able to control one of the 4 elements.</p>
-                <p>There is: Fire, Water, Air and Earth. Similar to the 4 classical elements first thought of in ancient Greek Philosophy.</p>
+                <p>There is: Fire, Water, Air and Stone. Similar to the 4 classical elements first thought of in ancient Greek Philosophy.</p>
                 <p>Except here its really cool superpowers and the show has flashy kung fu fights!</p>
                 <p>I made this questionnaire to help you find out what element you can control. Have fun!</p>
             </article>
@@ -113,7 +112,7 @@
         </div>
 
         <div class="body_wrapper">
-            <form id="my_form" class="oldPaper" onsubmit="return validate()">
+            <form id="my_form" class="oldPaper" onsubmit="return validate()" action="quiz_verification.php" method="get">
                 <fieldset>
                     <legend>
                         <h1>Find Out Which of the 4 Elements You Can Control?</h1>
@@ -315,44 +314,44 @@
                         </legend>
                         
                         <label for="Hiking">Hiking</label>
-                        <input type="checkbox" id="Hiking" name="activity" value="stone"><br>
+                        <input type="checkbox" id="Hiking" name="activity1" value="stone"><br>
 
                         <label for="Hunting">Hunting</label>
-                        <input type="checkbox" id="Hunting" name="activity" value="fire"><br>
+                        <input type="checkbox" id="Hunting" name="activity2" value="fire"><br>
 
                         <label for="Flying a kite">Flying a kite</label>
-                        <input type="checkbox" id="Flying a kite" name="activity" value="air"><br>
+                        <input type="checkbox" id="Flying a kite" name="activity3" value="air"><br>
 
                         <label for="Sailing">Sailing</label>
-                        <input type="checkbox" id="Sailing" name="activity" value="water"><br>
+                        <input type="checkbox" id="Sailing" name="activity4" value="water"><br>
 
                         <label for="Basketball">Basketball</label>
-                        <input type="checkbox" id="Basketball" name="activity" value="fire"><br>
+                        <input type="checkbox" id="Basketball" name="activity5" value="fire"><br>
 
                         <label for="Sightseeing">Sightseeing</label>
-                        <input type="checkbox" id="Sightseeing" name="activity" value="air"><br>
+                        <input type="checkbox" id="Sightseeing" name="activity6" value="air"><br>
 
                         <label for="Reading">Reading</label>
-                        <input type="checkbox" id="Reading" name="activity" value="stone"><br>
+                        <input type="checkbox" id="Reading" name="activity7" value="stone"><br>
 
                         <label for="Cooking">Cooking</label>
-                        <input type="checkbox" id="Cooking" name="activity" value="water"><br>
+                        <input type="checkbox" id="Cooking" name="activity8" value="water"><br>
                     </fieldset>
 
-                    <label for="birth"><!--2 points, required-->
+                    <label for="birth"><!--2.5 points, required-->
                         <h2>What Month Were You Born In?</h2>
                     </label>
                     <input type="month" id="birth" name="birth"><br>
 
-                    <!--Total Score: 3 to 15 points divided among all 4 elements-->
+                    <!--Total Score: 3.5 to 15.5 points divided among all 4 elements-->
                     <input type="submit" class="oldPaper" value="Click Here to Submit!">
 
                 </fieldset>
             </form>
         </div>
 
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
     </body>
 </html>

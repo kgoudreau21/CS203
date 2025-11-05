@@ -12,12 +12,9 @@
         <!--Import font: font-awesome, Part3 b) of lab7-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        <!--Setup for nav-->
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
+        <?php
+            include_once("nav.php");
+        ?>
 
         <style>
             /*downloaded custom font, reference: https://stackoverflow.com/questions/24990554/how-to-include-a-font-ttf-using-css*/
@@ -104,7 +101,9 @@
     </head>
     <body>
         <div class="body_wrapper">
-            <nav id="main-nav"></nav>
+            <?php
+                $webpage->setNav();
+            ?>
         </div>
 
         <div class="body_wrapper background">
@@ -125,8 +124,8 @@
         <!--JS file for to do list, needs to be below element with id="list" otherwise JS cannot access it-->
         <script src="to-do.js"></script>
 
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
     </body>
 </html>

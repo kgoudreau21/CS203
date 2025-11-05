@@ -7,10 +7,11 @@
         <meta name="keywords" content="HTML, CSS, Vacation">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
+
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
         
         <?php
-            include_once("nav.php");
+            include_once("php/nav.php");
         ?>
     </head>
 

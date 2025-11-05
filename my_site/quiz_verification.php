@@ -1,6 +1,7 @@
 <?php
+//Test URL: http://localhost/CS203/my_site/quiz_verification.php?name=Korey&email=example%40gmail.com&holiday=air&mood=air&top1food=water&top2food=air&top3food=stone&competitive=5&activity1=stone&activity6=air&birth=2025-12
 //test sample input: print_r($_GET)
-//Array ( [name] => Korey [email] => example@email.com [holiday] => air [mood] => water [top1food] => stone [top2food] => air [top3food] => water [competitive] => 1 [activity1] => stone [activity2] => fire [activity3] => air [birth] => 2025-07 )
+//Array ( [name] => Korey [email] => example@gmail.com [holiday] => air [mood] => air [top1food] => water [top2food] => air [top3food] => stone [competitive] => 5 [activity1] => stone [activity6] => air [birth] => 2025-12 ) 1
 
 
 //Form input verification
@@ -181,6 +182,7 @@ $air=round(($air/$total)*100,2,PHP_ROUND_HALF_UP);
 $water=round(($water/$total)*100,2,PHP_ROUND_HALF_UP);
 $stone=round(($stone/$total)*100,2,PHP_ROUND_HALF_UP);
 
+//Setup array with key=score and value = string (name of element)
 $elements = [
     $fire => "fire",
     $air => "air",
@@ -188,12 +190,16 @@ $elements = [
     $stone => "stone"
 ];
 
-//check to see which of the 4 elements has highest score -> ref: https://www.php.net/manual/en/function.max.php
+//Setup output for html page
 $output = [
-    'your_element' => $elements[max($fire, $air, $water, $stone)],
+    'your_element' => $elements[max($fire, $air, $water, $stone)], //check to see which of the 4 elements has highest score -> ref: https://www.php.net/manual/en/function.max.php
+    
+    //output text content for html page
     'abilities' => '',
     'season' => '',
     'text' => '',
+
+    //will be used to modify css styling of html content
     'fire_style' => '',
     'air_style' => '',
     'water_style' => '',
@@ -233,8 +239,6 @@ switch($output['your_element']){
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -244,7 +248,9 @@ switch($output['your_element']){
         <meta name="keywords" content="HTML, Javascript, PHP, Form">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
+
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+        <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
         <!--Links for Google font: Tangerine: https://fonts.google.com/specimen/Tangerine -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,60 +258,9 @@ switch($output['your_element']){
         <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
 
         <?php
-            include_once("nav.php");
+            include_once("php/nav.php");
         ?>
 
-        <style>
-            body { /*background image*/
-                background-image:url('images/chineseTemple.jpg');
-                background-repeat:no-repeat;
-                background-attachment:fixed; 
-                background-size:100%;
-            }
-
-            .body_wrapper { /*center all elements inside a body_wrapper*/
-                width:100%;
-                display:flex;
-                align-items:center; /*Vertically center*/
-                justify-content:center; /*Horizontally center*/
-            }
-            
-            .oldPaper { /*gives element a old paper look*/
-                font-size:2em;
-                width:70%;
-
-                /*Google font: Tangerine*/
-                font-family:"Tangerine", cursive, serif;
-                font-weight:700;
-
-                /*ref: https://stackoverflow.com/questions/14585101/old-paper-background-texture-with-just-css */
-                margin: 2em 0;
-                padding: 2em;
-                box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
-                background: #fffef0;
-            }
-
-            /*image containers*/
-            .row {
-                display: flex;
-                justify-content: center;
-                gap: 2em;
-            }
-
-            .column {
-                flex: 1;
-                flex-direction: column;
-                text-align: center;
-                border-radius:1.25em;
-            }
-
-            .column img {
-                border-radius:1em;
-                aspect-ratio: 2 / 3;
-                width: 100%;
-            }
-
-        </style>
     </head>
     <body>
         <?php
@@ -316,7 +271,7 @@ switch($output['your_element']){
             echo <<<END
             <div class="body_wrapper">
                 <div class="oldPaper">
-                    <div class="row">
+                    <div class="column_container">
                         <div class="column" {$output['fire_style']}>
                             <img src="images/fire.jpg" alt="Fire">
                             <h2>{$fire}%</h2>

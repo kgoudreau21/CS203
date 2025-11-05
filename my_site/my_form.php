@@ -7,7 +7,9 @@
         <meta name="keywords" content="HTML, Javascript, Form">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+        <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
         <!--Link to javascript code for Form Validation-->
         <script src="formValidation.js"></script>
@@ -16,79 +18,19 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-
-        <?php
-            include_once("nav.php");
-        ?>
-
+<!--
         <style>
-            body { /*background image*/
-                background-image:url('images/chineseTemple.jpg');
-                background-repeat:no-repeat;
-                background-attachment:fixed; 
-                background-size:100%;
-            }
-
             div { /*center all elements inside a div*/
                 width:100%;
                 display:flex;
                 align-items:center; /*Vertically center*/
                 justify-content:center; /*Horizontally center*/
             }
-            .oldPaper { /*gives element a old paper look*/
-                font-size:2em;
-                width:60%;
-
-                /*Google font: Tangerine*/
-                font-family:"Tangerine", cursive, serif;
-                font-weight:700;
-
-                /*
-                source: https://stackoverflow.com/questions/14585101/old-paper-background-texture-with-just-css
-                */
-                margin: 2em 0;
-                padding: 2em;
-                box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
-                background: #fffef0;
-            }
-
-            input[type="text"] , input[type="email"] {/*match input text to tangering font and increase font size*/
-                font-family:"Tangerine", cursive, serif;
-                font-size:1em;
-            }
-
-            input[type="number"]{ /*adjust font size of number input*/
-                font-size:1em;
-            }
-            
-            input[type="month"]{ /*adjust width and font size of month input*/
-                width:25%;
-                font-size:1em;
-            }
-
-            input[type="submit"] {/*change font size for submit button and add some more spacing*/
-                font-size:1em;
-                border-radius: 1em;
-            }
-
-            input[type="submit"]:hover { /*Make submit button bigger and change color on hover*/
-                background-color: #f5deb3;
-                transform: scale(1.1);
-            }
-
-            fieldset { /*Add a bit of space between fieldsets in the form*/
-                padding: 1em;
-            }
-
-            h3, h2, h1, legend{ /*decrease space under headers and legends*/
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-
-            #jpg{ /*adjust image width*/
-                width:60%;
-            }
         </style>
+-->
+        <?php
+            include_once("php/nav.php");
+        ?>
     </head>
     <body>
         <?php
@@ -134,20 +76,22 @@
                             <h2>What is Your Favorite Holiday?</h2> <!--2 points, required-->
                         </legend>
                         
-                        <label for="Halloween">Halloween</label> <!-- Autumn -->
-                        <input type="radio" id="Halloween" name="holiday" value="air"><br>
+                        <div>
+                            <label for="Halloween">Halloween</label> <!-- Autumn -->
+                            <input type="radio" id="Halloween" name="holiday" value="air"><br>
 
-                        <label for="Easter">Easter</label> <!-- Spring -->
-                        <input type="radio" id="Easter" name="holiday" value="stone"><br>
+                            <label for="Easter">Easter</label> <!-- Spring -->
+                            <input type="radio" id="Easter" name="holiday" value="stone"><br>
 
-                        <label for="Summer Break">Summer Break</label> <!-- Summer -->
-                        <input type="radio" id="Summer Break" name="holiday" value="fire"><br>
+                            <label for="Summer Break">Summer Break</label> <!-- Summer -->
+                            <input type="radio" id="Summer Break" name="holiday" value="fire"><br>
 
-                        <label for="St-Patrick’s Day">St-Patrick’s Day</label> <!-- Spring -->
-                        <input type="radio" id="St-Patrick’s Day" name="holiday" value="stone"><br>
+                            <label for="St-Patrick’s Day">St-Patrick’s Day</label> <!-- Spring -->
+                            <input type="radio" id="St-Patrick’s Day" name="holiday" value="stone"><br>
 
-                        <label for="Christmas">Christmas</label> <!-- Winter -->
-                        <input type="radio" id="Christmas" name="holiday" value="water"><br>
+                            <label for="Christmas">Christmas</label> <!-- Winter -->
+                            <input type="radio" id="Christmas" name="holiday" value="water"><br>
+                        </div>
                     </fieldset>
 
                     <fieldset>
@@ -174,7 +118,7 @@
                         </legend>
 
                         <h3>Choose for Top 1:</h3> <!--3 points, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread1">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread1" name="top1food" value="water">
@@ -217,7 +161,7 @@
                         </div>
 
                         <h3>Choose for Top 2:</h3> <!--2 points, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread2">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread2" name="top2food" value="water">
@@ -260,7 +204,7 @@
                         </div>
 
                         <h3>Choose for Top 3:</h3> <!--1 point, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread3">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread3" name="top3food" value="water">

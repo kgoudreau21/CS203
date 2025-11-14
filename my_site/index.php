@@ -7,23 +7,20 @@
         <meta name="keywords" content="HTML, CSS, Javascript, Home, Homepage">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+        <link rel="stylesheet" type="text/css" href="css/slideshow.css">
 
-        <!--Stylesheet for lab7 slideshow class-->
-        <link rel="stylesheet" type="text/css" href="slideshow.css">
-
-        <!--Setup for nav-->
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
-
+        <?php
+            include_once("php/nav.php");
+        ?>
     </head>
     <body style="background-color:khaki;">
 
         <div class="body_wrapper">
-            <nav id="main-nav"></nav>
+            <?php
+                $webpage->setNav();
+            ?>
         </div>
 
         <div class="body_wrapper">
@@ -155,9 +152,9 @@
             <a href="my_vacation.html">Link to Vacation Page here!</a>
         </div>
         <hr>
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
 
         <!--JS Code for div with class="slideshow"-->
         <script src="slideshow.js"></script>

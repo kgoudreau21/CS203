@@ -1,0 +1,90 @@
+body { /*background image*/
+    background-image:url('../images/chineseTemple.jpg');
+    background-repeat:no-repeat;
+    background-attachment:fixed; 
+    background-size:100%;
+}
+
+.oldPaper { /*gives element a old paper look*/
+    font-size:2em;
+    width:60%;
+
+    /*Google font: Tangerine*/
+    font-family:"Tangerine", cursive, serif;
+    font-weight:700;
+
+    /*
+    source: https://stackoverflow.com/questions/14585101/old-paper-background-texture-with-just-css
+    */
+    margin: 2em 0;
+    padding: 2em;
+    box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
+    background: #fffef0;
+}
+
+.body_wrapper { /*center all elements inside a body_wrapper*/
+    width:100%;
+    display:flex;
+    align-items:center; /*Vertically center*/
+    justify-content:center; /*Horizontally center*/
+}
+
+input[type="text"] , input[type="email"] {/*match input text to tangering font and increase font size*/
+    font-family:"Tangerine", cursive, serif;
+    font-size:1em;
+}
+
+input[type="number"]{ /*adjust font size of number input*/
+    font-size:1em;
+}
+
+input[type="month"]{ /*adjust width and font size of month input*/
+    width:25%;
+    font-size:1em;
+}
+
+input[type="submit"] {/*change font size for submit button and add some more spacing*/
+    font-size:1em;
+    border-radius: 1em;
+}
+
+input[type="submit"]:hover { /*Make submit button bigger and change color on hover*/
+    background-color: #f5deb3;
+    transform: scale(1.1);
+}
+
+fieldset { /*Add a bit of space between fieldsets in the form*/
+    padding: 1em;
+}
+
+h3, h2, h1, legend{ /*decrease space under headers and legends*/
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#jpg{ /*adjust image width*/
+    width:60%;
+}
+
+.row{
+    display: flex;
+}
+
+/*image containers*/
+.column_container {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+.column {
+    flex: 1;
+    flex-direction: column;
+    text-align: center;
+    border-radius:1.25em;
+}
+
+.column img {
+    border-radius:1em;
+    width: 100%;
+}

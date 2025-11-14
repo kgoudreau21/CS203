@@ -7,12 +7,10 @@
         <meta name="keywords" content="HTML, CSS, Art, Artistic Side">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+        <?php
+            include_once("php/nav.php");
+        ?>
         <style>
             body { /*background image & color*/
                 background-image:url('images/pillsburyArt.jpg');
@@ -88,7 +86,9 @@
     </head>
     <body>
         <div class="body_wrapper">
-            <nav id="main-nav"></nav>
+            <?php
+                $webpage->setNav();
+            ?>
             <h1>This corner is for Self Expression!</h1>
         </div>
 
@@ -117,8 +117,8 @@
             <br>
         </div>
 
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
     </body>
 </html>

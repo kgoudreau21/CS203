@@ -1,5 +1,4 @@
 function validate(){
-    event.preventDefault();
 
     //array contains: names of the form inputs I will check
     let arr = new Array("name", "email", "holiday", "mood", "top1food", "top2food", "top3food", "competitive", "birth");

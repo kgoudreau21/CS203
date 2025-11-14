@@ -7,7 +7,9 @@
         <meta name="keywords" content="HTML, Javascript, Form">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="my_style.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+        <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
         <!--Link to javascript code for Form Validation-->
         <script src="formValidation.js"></script>
@@ -16,91 +18,30 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-
-        <!--Setup Nav-->
-        <script src="nav.js"></script>
-        <script>
-                const current_path = location.pathname;
-                setNav(current_path);
-        </script>
-
+<!--
         <style>
-            body { /*background image*/
-                background-image:url('images/chineseTemple.jpg');
-                background-repeat:no-repeat;
-                background-attachment:fixed; 
-                background-size:100%;
-            }
-
             div { /*center all elements inside a div*/
                 width:100%;
                 display:flex;
                 align-items:center; /*Vertically center*/
                 justify-content:center; /*Horizontally center*/
             }
-            .oldPaper { /*gives element a old paper look*/
-                font-size:2em;
-                width:60%;
-
-                /*Google font: Tangerine*/
-                font-family:"Tangerine", cursive, serif;
-                font-weight:700;
-
-                /*
-                source: https://stackoverflow.com/questions/14585101/old-paper-background-texture-with-just-css
-                */
-                margin: 2em 0;
-                padding: 2em;
-                box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
-                background: #fffef0;
-            }
-
-            input[type="text"] , input[type="email"] {/*match input text to tangering font and increase font size*/
-                font-family:"Tangerine", cursive, serif;
-                font-size:1em;
-            }
-
-            input[type="number"]{ /*adjust font size of number input*/
-                font-size:1em;
-            }
-            
-            input[type="month"]{ /*adjust width and font size of month input*/
-                width:25%;
-                font-size:1em;
-            }
-
-            input[type="submit"] {/*change font size for submit button and add some more spacing*/
-                font-size:1em;
-                border-radius: 1em;
-            }
-
-            input[type="submit"]:hover { /*Make submit button bigger and change color on hover*/
-                background-color: #f5deb3;
-                transform: scale(1.1);
-            }
-
-            fieldset { /*Add a bit of space between fieldsets in the form*/
-                padding: 1em;
-            }
-
-            h3, h2, h1, legend{ /*decrease space under headers and legends*/
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-
-            #jpg{ /*adjust image width*/
-                width:60%;
-            }
         </style>
+-->
+        <?php
+            include_once("php/nav.php");
+        ?>
     </head>
     <body>
-        <nav id="main-nav"></nav>
+        <?php
+            $webpage->setNav();
+        ?>
         
         <div class="body_wrapper">
             <article class="oldPaper">
                 <h1>Intro To My Questionaire:</h1>
                 <p>I got the idea from "Avatar: The Last Airbender". In this show people are able to control one of the 4 elements.</p>
-                <p>There is: Fire, Water, Air and Earth. Similar to the 4 classical elements first thought of in ancient Greek Philosophy.</p>
+                <p>There is: Fire, Water, Air and Stone. Similar to the 4 classical elements first thought of in ancient Greek Philosophy.</p>
                 <p>Except here its really cool superpowers and the show has flashy kung fu fights!</p>
                 <p>I made this questionnaire to help you find out what element you can control. Have fun!</p>
             </article>
@@ -113,7 +54,7 @@
         </div>
 
         <div class="body_wrapper">
-            <form id="my_form" class="oldPaper" onsubmit="return validate()">
+            <form id="my_form" class="oldPaper" onsubmit="return validate()" action="quiz_verification.php" method="get">
                 <fieldset>
                     <legend>
                         <h1>Find Out Which of the 4 Elements You Can Control?</h1>
@@ -135,20 +76,22 @@
                             <h2>What is Your Favorite Holiday?</h2> <!--2 points, required-->
                         </legend>
                         
-                        <label for="Halloween">Halloween</label> <!-- Autumn -->
-                        <input type="radio" id="Halloween" name="holiday" value="air"><br>
+                        <div>
+                            <label for="Halloween">Halloween</label> <!-- Autumn -->
+                            <input type="radio" id="Halloween" name="holiday" value="air"><br>
 
-                        <label for="Easter">Easter</label> <!-- Spring -->
-                        <input type="radio" id="Easter" name="holiday" value="stone"><br>
+                            <label for="Easter">Easter</label> <!-- Spring -->
+                            <input type="radio" id="Easter" name="holiday" value="stone"><br>
 
-                        <label for="Summer Break">Summer Break</label> <!-- Summer -->
-                        <input type="radio" id="Summer Break" name="holiday" value="fire"><br>
+                            <label for="Summer Break">Summer Break</label> <!-- Summer -->
+                            <input type="radio" id="Summer Break" name="holiday" value="fire"><br>
 
-                        <label for="St-Patrick’s Day">St-Patrick’s Day</label> <!-- Spring -->
-                        <input type="radio" id="St-Patrick’s Day" name="holiday" value="stone"><br>
+                            <label for="St-Patrick’s Day">St-Patrick’s Day</label> <!-- Spring -->
+                            <input type="radio" id="St-Patrick’s Day" name="holiday" value="stone"><br>
 
-                        <label for="Christmas">Christmas</label> <!-- Winter -->
-                        <input type="radio" id="Christmas" name="holiday" value="water"><br>
+                            <label for="Christmas">Christmas</label> <!-- Winter -->
+                            <input type="radio" id="Christmas" name="holiday" value="water"><br>
+                        </div>
                     </fieldset>
 
                     <fieldset>
@@ -175,7 +118,7 @@
                         </legend>
 
                         <h3>Choose for Top 1:</h3> <!--3 points, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread1">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread1" name="top1food" value="water">
@@ -218,7 +161,7 @@
                         </div>
 
                         <h3>Choose for Top 2:</h3> <!--2 points, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread2">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread2" name="top2food" value="water">
@@ -261,7 +204,7 @@
                         </div>
 
                         <h3>Choose for Top 3:</h3> <!--1 point, required-->
-                        <div>
+                        <div class="row">
                             <div>
                                 <label for="Bread3">Bread</label> <!-- Salty -->
                                 <input type="radio" id="Bread3" name="top3food" value="water">
@@ -315,44 +258,44 @@
                         </legend>
                         
                         <label for="Hiking">Hiking</label>
-                        <input type="checkbox" id="Hiking" name="activity" value="stone"><br>
+                        <input type="checkbox" id="Hiking" name="activity1" value="stone"><br>
 
                         <label for="Hunting">Hunting</label>
-                        <input type="checkbox" id="Hunting" name="activity" value="fire"><br>
+                        <input type="checkbox" id="Hunting" name="activity2" value="fire"><br>
 
                         <label for="Flying a kite">Flying a kite</label>
-                        <input type="checkbox" id="Flying a kite" name="activity" value="air"><br>
+                        <input type="checkbox" id="Flying a kite" name="activity3" value="air"><br>
 
                         <label for="Sailing">Sailing</label>
-                        <input type="checkbox" id="Sailing" name="activity" value="water"><br>
+                        <input type="checkbox" id="Sailing" name="activity4" value="water"><br>
 
                         <label for="Basketball">Basketball</label>
-                        <input type="checkbox" id="Basketball" name="activity" value="fire"><br>
+                        <input type="checkbox" id="Basketball" name="activity5" value="fire"><br>
 
                         <label for="Sightseeing">Sightseeing</label>
-                        <input type="checkbox" id="Sightseeing" name="activity" value="air"><br>
+                        <input type="checkbox" id="Sightseeing" name="activity6" value="air"><br>
 
                         <label for="Reading">Reading</label>
-                        <input type="checkbox" id="Reading" name="activity" value="stone"><br>
+                        <input type="checkbox" id="Reading" name="activity7" value="stone"><br>
 
                         <label for="Cooking">Cooking</label>
-                        <input type="checkbox" id="Cooking" name="activity" value="water"><br>
+                        <input type="checkbox" id="Cooking" name="activity8" value="water"><br>
                     </fieldset>
 
-                    <label for="birth"><!--2 points, required-->
+                    <label for="birth"><!--2.5 points, required-->
                         <h2>What Month Were You Born In?</h2>
                     </label>
                     <input type="month" id="birth" name="birth"><br>
 
-                    <!--Total Score: 3 to 15 points divided among all 4 elements-->
+                    <!--Total Score: 3.5 to 15.5 points divided among all 4 elements-->
                     <input type="submit" class="oldPaper" value="Click Here to Submit!">
 
                 </fieldset>
             </form>
         </div>
 
-        <footer>
-            <p>This Website was made &amp; Bishops University CS203 Labs!</p>
-        </footer>
+        <?php
+            $webpage->setFooter();
+        ?>
     </body>
 </html>

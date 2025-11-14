@@ -6,6 +6,19 @@ $error_msg = '<h2 style="color:red">Error: Input Password is Incorrect!</h2>';
 //setup pswd hash
 $pswd_hash = '13c74a37961a2f6c0833e5cbc32781a6c136d686604f13aeb056dcd44fb8329b';
 
+if(isset($_POST['username'])){
+    $username = $_POST['username'];
+    // Strip whitespace from the beginning and end of $name
+    $username = trim($username);
+    //Security against code injection in username
+    $username = htmlspecialchars($username);
+    //check username to see if its an empty string
+    if(strlen($username) <= 0){
+        //error msg: input username not set
+        die('Error: Username input missing!');
+    }
+}
+
 //verify if the $_POST variable contains a password
 //if password is correct, then you can access the to-do list
 if(isset($_POST['pswd'])){
@@ -18,6 +31,8 @@ if(isset($_POST['pswd'])){
         } else {
             $BASE_URL= $_SERVER['HTTP_HOST'];
         }
+        //create cookie for username
+        setcookie('username', $username, time()+60);
         header('Location: http://' . $BASE_URL .  'to-do.php');
         die('Error: page for "To Do List" not found!');
     }else{
@@ -25,7 +40,6 @@ if(isset($_POST['pswd'])){
         $wrong_pswd=true;
     }
 }
-
 
     include_once("php/nav.php");
 ?>
@@ -38,7 +52,6 @@ if(isset($_POST['pswd'])){
         <meta name="keywords" content="HTML, CSS, Javascript, PHP, Login, To Do List, To Do">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
         <link rel="stylesheet" type="text/css" href="css/to-do_style.css">
    
@@ -55,11 +68,22 @@ if(isset($_POST['pswd'])){
 
         <div class="body_wrapper background">
             <form action="login.php" method="post">
-                <label for="pswd"><strong>Enter your Login Password:</strong></label><br>
+                <label for="username"><strong>Your Username:</strong></label><br>
+                <?php
+                    if(isset($_COOKIE['username'])){
+                        echo '<input type="text" id="username" name="username" value="'.$_COOKIE['username'].'"><br>';
+                    } else{
+                        echo '<input type="text" id="username" name="username"><br>';
+                    }
+                ?>
+                <label for="pswd"><strong>Password:</strong></label><br>
                 <input type="password" id="pswd" name="pswd"><br>
                 <input type="submit" value="Submit">
             </form>
             <?php
+                //debugging
+                //print_r($_COOKIE);
+
                 if($wrong_pswd){
                     echo $error_msg;
                 }

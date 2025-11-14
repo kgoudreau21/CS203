@@ -33,12 +33,22 @@
         <br>
 
         <div class="body_wrapper background">
-            <h1 style="font-family:nitroEagle">My To Do List:</h1>
+            <?php
+                //debugging
+                //print_r($_COOKIE);
+
+                if(isset($_COOKIE['username'])){
+                    echo '<h1 style="font-family:nitroEagle">'.$_COOKIE['username']."'s To Do List:</h1>";
+                } else{
+                    echo '<h1 style="font-family:nitroEagle">My To Do List:</h1>';
+                }
+            ?>
+            
             <ul id="list"></ul>
         </div>
 
         <!--JS file for to do list, needs to be below element with id="list" otherwise JS cannot access it-->
-        <script src="../to-do.js"></script>
+        <script src="js/to-do.js"></script>
 
         <?php
             $webpage->setFooter();

@@ -237,6 +237,9 @@ switch($output['your_element']){
         $output['stone_style']='style="border: 0.25em solid green"';
         break;
 }
+
+
+    include_once("php/nav.php");
 ?>
 
 <!DOCTYPE html>
@@ -248,23 +251,16 @@ switch($output['your_element']){
         <meta name="keywords" content="HTML, Javascript, PHP, Form">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
         <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
         <!--Links for Google font: Tangerine: https://fonts.google.com/specimen/Tangerine -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-
-        <?php
-            include_once("php/nav.php");
-        ?>
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap">
     </head>
     <body>
         <?php
-            $webpage = new menu('my_form.php');
             $webpage->setNav();
             
             //heredoc syntax for strings -> ref: https://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc

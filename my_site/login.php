@@ -25,6 +25,9 @@ if(isset($_POST['pswd'])){
         $wrong_pswd=true;
     }
 }
+
+
+    include_once("php/nav.php");
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -41,10 +44,6 @@ if(isset($_POST['pswd'])){
    
         <!--Import font: font-awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-        <?php
-            include_once("php/nav.php");
-        ?>
     </head>
     <body>
         <div class="body_wrapper">

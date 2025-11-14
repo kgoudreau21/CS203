@@ -1,3 +1,7 @@
+<?php
+    include_once("php/nav.php");
+    $webpage = new menu('login.php');
+?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -7,21 +11,13 @@
         <meta name="keywords" content="HTML, CSS, Javascript, To Do List, To Do">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
         <link rel="stylesheet" type="text/css" href="css/to-do_style.css">
-
-        <!--Import font: font-awesome, Part3 b) of lab7-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-        <?php
-            include_once("php/nav.php");
-        ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">    
     </head>
     <body>
         <div class="body_wrapper">
             <?php
-                $webpage = new menu('login.php');
                 $webpage->setNav();
             ?>
         </div>

@@ -1,3 +1,6 @@
+<?php
+    include_once("php/nav.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -7,7 +10,6 @@
         <meta name="keywords" content="HTML, Javascript, Form">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
         <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
@@ -18,19 +20,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-<!--
-        <style>
-            div { /*center all elements inside a div*/
-                width:100%;
-                display:flex;
-                align-items:center; /*Vertically center*/
-                justify-content:center; /*Horizontally center*/
-            }
-        </style>
--->
-        <?php
-            include_once("php/nav.php");
-        ?>
     </head>
     <body>
         <?php
@@ -46,11 +35,8 @@
                 <p>I made this questionnaire to help you find out what element you can control. Have fun!</p>
             </article>
 
-            <!--
-            image source URL: https://imgs.search.brave.com/15XLVXJEbhvXroEEcqkrkzyvqs5XKR-7iwF80uoz1yo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/ODEzNEJkNWFwQUwu/anBn
-            -->
+            <!--image source URL: https://imgs.search.brave.com/15XLVXJEbhvXroEEcqkrkzyvqs5XKR-7iwF80uoz1yo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/ODEzNEJkNWFwQUwu/anBn -->
             <img id="jpg" src="images/avatarShow.jpg" alt="Poster Art for the show: Avatar: The Last Airbender">
-
         </div>
 
         <div class="body_wrapper">

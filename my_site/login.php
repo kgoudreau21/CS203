@@ -13,7 +13,7 @@ if(isset($_POST['pswd'])){
         //setting up base URL
         if ($_SERVER['SERVER_NAME'] === 'localhost') {
             $BASE_URL= $_SERVER['HTTP_HOST'] . '/CS203/my_site/'; //website file location for XAMPP
-        } else if ($_SERVER['SERVER_NAME'] === ' osiris.ubishops.ca'){
+        } else if ($_SERVER['SERVER_NAME'] === 'osiris.ubishops.ca'){
             $BASE_URL= $_SERVER['HTTP_HOST'] . '/home/kgoudreau/'; //website file location for Osiris
         } else {
             $BASE_URL= $_SERVER['HTTP_HOST'];

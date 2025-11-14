@@ -35,7 +35,8 @@
         <div class="body_wrapper background">
             <?php
                 //debugging
-                //print_r($_COOKIE);
+                print_r($_COOKIE);
+                print_r($_SESSION);
 
                 if(isset($_COOKIE['username'])){
                     echo '<h1 style="font-family:nitroEagle">'.$_COOKIE['username']."'s To Do List:</h1>";

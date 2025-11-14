@@ -240,6 +240,7 @@ switch($output['your_element']){
 
 
     include_once("php/nav.php");
+    $webpage = new menu('my_form.php');
 ?>
 
 <!DOCTYPE html>

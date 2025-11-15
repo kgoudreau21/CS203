@@ -155,6 +155,6 @@
         ?>
 
         <!--JS Code for div with class="slideshow"-->
-        <script src="slideshow.js"></script>
+        <script src="js/slideshow.js"></script>
     </body>
 </html>

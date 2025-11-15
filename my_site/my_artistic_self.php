@@ -1,3 +1,6 @@
+<?php
+    include_once("php/nav.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -8,9 +11,6 @@
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
-        <?php
-            include_once("php/nav.php");
-        ?>
         <style>
             body { /*background image & color*/
                 background-image:url('images/pillsburyArt.jpg');

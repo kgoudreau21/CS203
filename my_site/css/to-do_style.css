@@ -27,7 +27,7 @@ form *{
     margin-bottom:10px;
 }
 
-label, input[type="submit"], input[type="text"], input[type="button"]{
+label, input[type="submit"], input[type="text"], input[type="password"], input[type="button"]{
     background-color: yellow;
     box-shadow: blue 5px 5px;
 }

@@ -147,7 +147,7 @@
                     <td>Delta</td>
                 </tr>
             </table>
-            <a href="my_vacation.html">Link to Vacation Page here!</a>
+            <a href="my_vacation.php?page=my_vacation.php">Link to Vacation Page here!</a>
         </div>
         <hr>
         <?php

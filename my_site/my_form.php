@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="css/form_style.css">
 
         <!--Link to javascript code for Form Validation-->
-        <script src="formValidation.js"></script>
+        <script src="js/formValidation.js"></script>
 
         <!--Links for Google font: Tangerine: https://fonts.google.com/specimen/Tangerine -->
         <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,6 +1,12 @@
 <?php
     include_once("php/nav.php");
     require_once("php/config.php");
+
+    //debugging
+    //$ok = session_start(); // will return false if it couldn’t write a file
+    //echo "successful session start?";
+    //var_dump($ok); //using var_dump to make sure we see ‘false’ results.
+
     session_start();
 
     //message flag (for error messages)

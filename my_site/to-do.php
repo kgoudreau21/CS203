@@ -46,7 +46,7 @@
 
             #logout_btn{
                 position:absolute;
-                right:30%;
+                right:10%;
             }
         </style>
     </head>

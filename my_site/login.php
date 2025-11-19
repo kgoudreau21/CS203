@@ -9,50 +9,44 @@
 
     session_start();
 
-    //message flag (for error messages)
-    $msg_flag = false;
-    $msg = '';
-
     //setup pswd hash
     $pswd_hash = '13c74a37961a2f6c0833e5cbc32781a6c136d686604f13aeb056dcd44fb8329b';
 
     //verify loggout request
-    verify_logout($msg_flag, $msg);
+    verify_logout();
 
-    //create a message if user is already logged in
-    already_logged_in_msg($msg_flag, $msg);
+    //redirect if user is already logged in
+    already_logged_in();
 
     //check username and pswd input
     //NOTE: Username input is REQUIRED
-    verify_inputs($pswd_hash, $username, $msg_flag, $msg);
+    verify_inputs($pswd_hash, $username);
 
-    function already_logged_in_msg(&$msg_flag, &$msg){
+    function verify_logout(){
+        if(isset($_POST['logout'])){
+            session_destroy();
+            session_start();
+            $_POST['logged_out_msg'] = 'You have been successfully logged out.';
+        }
+    }
+
+    function already_logged_in(){
         if(isset($_SESSION['is_logged_in'])){
             if($_SESSION['is_logged_in']){
-                $msg_flag = true;
-                $msg .= '<h2 class="blue">You are already logged in.</h2>';
+                redirect();
             }
         }
     }
 
-    function verify_logout(&$msg_flag, &$msg){
-        if(isset($_POST['logout'])){
-            session_destroy();
-            session_start();
-            $msg_flag = true;
-            $msg .= '<h2 class="blue">You have been successfully logged out.</h2>';
-        }
-    }
-
-    function verify_inputs($pswd_hash, &$username, &$msg_flag, &$msg){
+    function verify_inputs($pswd_hash, &$username){
         //check to see if username input entered
         if(isset($_POST['username'])){
             //verify username input
-            verify_username($pswd_hash, $username, $msg_flag, $msg);
+            verify_username($pswd_hash, $username);
         }
     }
 
-    function verify_username($pswd_hash, &$username, &$msg_flag, &$msg){
+    function verify_username($pswd_hash, &$username){
         $username = $_POST['username'];
         // Strip whitespace from the beginning and end of $name
         $username = trim($username);
@@ -63,24 +57,21 @@
         if(strlen($username) > 0){
             //initialize filepath
             $file='login_attempts.json';
+            
             //check user login attempts
-            $attempts =& verify_login_attempts($file, $username, $msg_flag, $msg);
-
-            //check log in status
-            logged_in_bypass($file, $attempts, $username, $msg_flag, $msg);
+            $attempts =& verify_login_attempts($file, $username);
 
             //verify if user is locked out
-            verify_locked_out($file, $attempts, $pswd_hash, $username, $msg_flag, $msg);
+            verify_locked_out($file, $attempts, $pswd_hash, $username);
 
             save_to_file($file, $attempts);
         }else{
             //error msg: input username not set
-            $msg_flag = true;
-            $msg .= '<h2 class="red">Error: Username input missing.</h2>';
+            add_error('Error: Username input missing.');
         }
     }
 
-    function &verify_login_attempts($file, $username, &$msg_flag, &$msg){ //info for returning by ref: https://www.php.net/manual/en/functions.returning-values.php
+    function &verify_login_attempts($file, $username){ //info for returning by ref: https://www.php.net/manual/en/functions.returning-values.php
         //load existing attempts (if file exists)
         if(file_exists($file)){
             $attempts=json_decode(file_get_contents($file), true);
@@ -97,36 +88,22 @@
         return $attempts;
     }
 
-    function logged_in_bypass($file, &$attempts, &$username, &$msg_flag, &$msg){
-
-        //will redirect user if they are already logged in
-        if(isset($_SESSION['is_logged_in'])){
-            if($_SESSION['is_logged_in']){
-                //create cookie for username (cookie expires after 2 minute)
-                setcookie('username', $username, time()+120);
-
-                redirect($file, $attempts, $msg_flag, $msg);
-            }
-        }
-    }
-
-    function verify_locked_out($file, &$attempts, $pswd_hash, $username, &$msg_flag, &$msg){
+    function verify_locked_out($file, &$attempts, $pswd_hash, $username){
         //if user is NOT locked out
         if($attempts[$username]['locked_until']<=time()){
             //verify pswd 
-            verify_pswd($file, $attempts, $pswd_hash, $username, $msg_flag, $msg);
+            verify_pswd($file, $attempts, $pswd_hash, $username);
         }else{
-            $msg_flag=true;
-            $msg .= '<h2 class="red">You have been locked out. Remaining time until next login attempt: '.$attempts[$username]['locked_until']-time().' seconds.</h2>';
+            //you have been locked out error msg
+            add_error('You have been locked out. Remaining time until next login attempt: '.$attempts[$username]['locked_until']-time().' seconds.');
         }
-        save_to_file($file, $attempts);
     }
             
             
 
-    function verify_pswd($file, &$attempts, $pswd_hash, $username, &$msg_flag, &$msg){
+    function verify_pswd($file, &$attempts, $pswd_hash, $username){
         //verify if the $_POST variable contains a password, then if password is correct you can access the to-do list
-        if(isset($_POST['pswd'])){
+        if(strlen($_POST['pswd'])>0){
             if(hash('haval256,5', $_POST['pswd'])===$pswd_hash){
                 //create cookie for username (cookie expires after 1 minute)
                 setcookie('username', $username, time()+60);
@@ -134,7 +111,8 @@
                 //set login status to TRUE
                 $_SESSION['is_logged_in'] = true;
 
-                redirect($file, $attempts, $msg_flag, $msg);
+                save_to_file($file, $attempts);
+                redirect();
             }else{
                 //add 1 to login attempts counter
                 $attempts[$username]['attempts'] += 1;
@@ -145,45 +123,33 @@
                     $attempts[$username]['attempts'] = 0;
 
                     //print an explanation
-                    $msg_flag=true;
-                    $msg .= '<h2 class="red">3 Failed Login Attempts Detected: You have been locked out for 30 seconds.</h2>';
+                    add_error('3 Failed Login Attempts Detected: You have been locked out for 30 seconds.');
                 }else{
                     //set error message flag to true
-                    $msg_flag=true;
                     switch($attempts[$username]['attempts']){
                         case 1:
-                            $msg .= '<h2 class="red">Incorrect Password: This is your 1st attempt.</h2>';
+                            add_error('Incorrect Password: This is your 1st attempt.');
                             break;
                         case 2:
-                            $msg .= '<h2 class="red">Incorrect Password: This is your 2nd attempt.</h2>';
-                            break;
-                        case 3:
-                            $msg .= '<h2 class="red">Incorrect Password: This is your 1st attempt.</h2>';
+                            add_error('Incorrect Password: This is your 2nd attempt.');
                             break;
                     }
                 }
             }
+        } else{
+            add_error('Error: No Password Entered.');
         }
-        save_to_file($file, $attempts);
     }
 
-    function redirect($file, &$attempts, &$msg_flag, &$msg){
-        //setting up base URL
-        if ($_SERVER['SERVER_NAME'] === 'localhost') {
-            $BASE_URL= $_SERVER['HTTP_HOST'] . '/CS203/my_site/'; //website file location for XAMPP
-        } else if ($_SERVER['SERVER_NAME'] === 'osiris.ubishops.ca'){
-            $BASE_URL= $_SERVER['HTTP_HOST'] . '/home/kgoudreau/'; //website file location for Osiris
-        } else {
-            $BASE_URL= $_SERVER['HTTP_HOST'];
-        }
-        
-        save_to_file($file, $attempts);
-
+    function redirect(){
+        //setting up base URL = 'website URL' + 'path to directory containing login.php'
+        //ref: https://www.sololearn.com/en/Discuss/433812/what-is-the-difference-between-_serverscript_filename-and-_serverscript_name
+        //ref: https://www.php.net/manual/en/function.dirname.php
+        $BASE_URL= $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'; 
         header('Location: http://' . $BASE_URL .  'to-do.php');
 
         //error msg if to do list page not found
-        $msg_flag = true;
-        $msg .= '<h2 class="red">Error: To-Do List page not found.</h2>';
+        add_error('Error: To-Do List page not found.');
     }
 
     function save_to_file($file, &$attempts){
@@ -241,9 +207,19 @@
                 <input type="submit" value="Submit">
             </form>
             <?php
+            //VIEW part of php code
+                function add_error($string){ //adds string to error messages (function called in MODEL part of php code)
+                    $_POST['error_msgs'][] = $string;
+                }
 
-                if($msg_flag){
-                    echo $msg;
+                if(isset($_POST['error_msgs'])){
+                    foreach($_POST['error_msgs'] as $error_msg){
+                        echo '<h2 class="red">'.$error_msg.'</h2>';
+                    }
+                }
+
+                if(isset($_POST['logged_out_msg'])){
+                    echo '<h2 class="blue">'.$_POST['logged_out_msg'].'</h2>';
                 }
             ?>
         </div>

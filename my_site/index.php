@@ -1,3 +1,6 @@
+<?php
+    include_once("php/nav.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -7,13 +10,8 @@
         <meta name="keywords" content="HTML, CSS, Javascript, Home, Homepage">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
         <link rel="stylesheet" type="text/css" href="css/slideshow.css">
-
-        <?php
-            include_once("php/nav.php");
-        ?>
     </head>
     <body style="background-color:khaki;">
 
@@ -149,7 +147,7 @@
                     <td>Delta</td>
                 </tr>
             </table>
-            <a href="my_vacation.html">Link to Vacation Page here!</a>
+            <a href="my_vacation.php?page=my_vacation.php">Link to Vacation Page here!</a>
         </div>
         <hr>
         <?php
@@ -157,6 +155,6 @@
         ?>
 
         <!--JS Code for div with class="slideshow"-->
-        <script src="slideshow.js"></script>
+        <script src="js/slideshow.js"></script>
     </body>
 </html>

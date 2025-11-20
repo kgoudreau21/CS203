@@ -1,3 +1,6 @@
+<?php
+    include_once("php/nav.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
@@ -7,12 +10,7 @@
         <meta name="keywords" content="HTML, CSS, Vacation">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
-        
-        <?php
-            include_once("php/nav.php");
-        ?>
     </head>
 
     <body style="background-image:url('images/vacationBackground.jpg'); background-repeat:no-repeat; background-attachment:fixed; background-size:100%;">

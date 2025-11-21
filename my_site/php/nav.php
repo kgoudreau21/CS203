@@ -8,7 +8,7 @@
             $this->current_page= (strlen($current_page) > 0) ? $current_page : 'index.php';
 
             //array using key value pairs, key=href and value=(text inside <a>)
-            $this->links=['index.php'=>'Home', 'login.php'=>'To Do list', 'my_vacation.php'=>'My Dream Vacation!', 'my_artistic_self.php'=>'My Artistic Side!', 'my_form.php'=>'My Form'];
+            $this->links=['index.php'=>'Home', 'blog.php'=>'My Blog', 'login.php'=>'To Do list', 'my_vacation.php'=>'My Dream Vacation!', 'my_artistic_self.php'=>'My Artistic Side!', 'my_form.php'=>'My Form'];
         }
 
         public function setNav(){

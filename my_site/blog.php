@@ -22,7 +22,7 @@
         <!-- Option 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-        <!-- Documentation for using Tailwind
+        <!--Documentation for using Tailwind
             text decoration: https://v3.tailwindcss.com/docs/text-decoration-style#hover-focus-and-other-states
             font size: https://tailwindcss.com/docs/font-size
             font weight: https://tailwindcss.com/docs/font-weight
@@ -117,8 +117,7 @@
                         bg-indigo-500 rounded-2xl
                         hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white 
                         text-2xl font-bold 
-                        m-10
-                        ">
+                        m-10">
                         <h2 class="text-4xl font-bold underline decoration-solid">Gachiakuta</h2>
                         <h3 class="text-3xl">Manga series written and drawn by Kei Urana, 2022</h3>
                         <p class="m-4">
@@ -236,14 +235,17 @@
                     w-full lg:w-1/4
                     mt-10">
                     <!--Aside List Section-->
-                    <div id="aside_list">
+                    <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
+                    <div id="aside_list" class="
+                        bg-indigo-500 rounded-2xl
+                        hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white 
+                        mx-10 lg:ml-0 lg:mr-10">
                         <!--Aside Title: dashed line text decoration-->
                         <h1 id="aside_title" class="
                             underline decoration-dashed
                             text-6xl font-extrabold mb-5">
                             Table of Contents
                         </h1>
-
                         <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
                         <!--Have ffuchsia background with rounded edges, background color/text color/outline changes when you hover mouse-->
                         <div id="link1_container" class="mb-5">

@@ -2,7 +2,7 @@
     include_once("php/nav.php");
 ?>
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" class="scroll-smooth">
     <head>
         <title>Korey's Blog</title>
         <meta charset="UTF-8">
@@ -50,6 +50,8 @@
             mouse hover effects: https://tailwindcss.com/docs/hover-focus-and-other-states
 
             CSS @media equivalent: https://v3.tailwindcss.com/docs/responsive-design
+
+            using scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling
         -->
     </head>
     <!--Setup background to color gradient that changes from purple to fuschsia to pink-->

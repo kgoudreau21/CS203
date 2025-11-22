@@ -2,6 +2,7 @@
     include_once("php/nav.php");
 ?>
 <!DOCTYPE html>
+<!--Scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling-->
 <html lang="en-US" class="scroll-smooth">
     <head>
         <title>Korey's Blog</title>
@@ -36,7 +37,8 @@
 
             flex: https://tailwindcss.com/docs/flex
             align children in a col: https://tailwindcss.com/docs/flex-direction#column
-            center items along cross axis in flex: https://tailwindcss.com/docs/align-items
+            center items along cross axis in flex: https://tailwindcss.com/docs/align-items#center
+            justify items along center of main axis: https://v3.tailwindcss.com/docs/justify-content#center 
 
             float left: https://tailwindcss.com/docs/float#floating-elements-to-the-left
 
@@ -50,8 +52,6 @@
             mouse hover effects: https://tailwindcss.com/docs/hover-focus-and-other-states
 
             CSS @media equivalent: https://v3.tailwindcss.com/docs/responsive-design
-
-            using scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling
         -->
     </head>
     <!--Setup background to color gradient that changes from purple to fuschsia to pink-->
@@ -66,11 +66,11 @@
 
         <div class="body_wrapper">
             <!--Hero Section-->
-            <!--Using display flex in column direction, and center items along y axis, center text, margin of 56(14 rem or 224px using default spacing)-->
+            <!--Using display flex in column direction, and center/juistify items along y axis, center text, top and bottom margin of 56(14 rem or 224px using default spacing)-->
             <div id="hero" class="
                 text-center
-                flex flex-col items-center
-                m-56">
+                flex flex-col items-center justify-center
+                my-56">
                 <!--Hero Section Title: text weight and font size extrabold-->
                 <!--fuchsia color background with rounded edges, outline/bg color/text color changes on hover, padding of 5 and bottom margin of 10-->
                 <h1 id="hero_title" class="
@@ -80,12 +80,13 @@
                         p-5 mb-10">
                     Book Review Blog
                 </h1>
-                <!--Hero Section Text: width = 80% of container-->
+                <!--Hero Section Text-->
+                <!--If (screen takes up minimum of 1024px) {width = 4/5 of the container} else {width = 100%}-->
                 <p id="hero_text" class="
                     bg-fuchsia-400 rounded-2xl 
                     hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white
                     text-4xl font-bold
-                    w-4/5"> 
+                    w-full lg:w-4/5">
                     Hi! This is my book review blog spot.
                     Here I will write down my thoughts on some books I have read.
                     To be honest I have not been reading much lately...
@@ -103,11 +104,13 @@
             <div id="row" class="
                 bg-gradient-to-b from-fuchsia-800 to-pink-500 rounded-2xl
                 display-block
-                text-3xl text-center
+                text-3xl text-center justify-center
                 m-4">
                 <!--Main Section: float left-->
+                <!--If (screen takes up minimum of 1024px) {width = 3/4 of the container} else {width = 100%}-->
                 <section id="main" class="
-                    float-left w-3/4
+                    float-left
+                    w-full lg:w-3/4
                     text-3xl">
                     <!--Posts: all have margin of 10-->
                     <article id="post1" class="
@@ -226,10 +229,11 @@
                     </article>
                 </section>
                 <!--Aside Section-->
-                <!--takes up 1/4 of the container's width, float left, top margin of 10(2.5 rem, 40px)-->
+                <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
+                <!--float left, top margin of 10(2.5 rem, 40px)-->
                 <aside id="aside" class="
                     float-left 
-                    w-1/4
+                    w-full lg:w-1/4
                     mt-10">
                     <!--Aside List Section-->
                     <div id="aside_list">

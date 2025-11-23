@@ -10,7 +10,7 @@
     //verify logout request
     verify_logout();
 
-    //check if user is already logged in
+    //check if user is already logged in (log in status is determnined by bool variable: $_SESSION['is_logged_in'])
     already_logged_in();
 
     //check pswd input for login
@@ -18,6 +18,7 @@
 
     function verify_logout(){
         if(isset($_POST['logout'])){
+            //reset $_SESSION['is_logged_in'] to null
             session_destroy();
             session_start();
             //setup successful log out msg
@@ -30,9 +31,6 @@
             if($_SESSION['is_logged_in']){
                 //setup already logged in msg
                 $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">'."You're already logged in!</p>";
-
-                //setup page for logged in user
-                setup_page_logged_in();
             }
         }
     }
@@ -46,18 +44,11 @@
 
                 //setup login msg
                 $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">You have successfully logged in!</p>';
-
-                //setup page for logged in user
-                setup_page_logged_in();
             }else{
                 //setup wrong pswd msg
                 $_POST['msg']='<p class="text-red-600 text-2xl font-bold p-4 bg-white rounded-2xl">Error: Wrong Password Entered!</p>';
             }
         }
-    }
-
-    function setup_page_logged_in(){
-        //sets up page for logged in user
     }
 ?>
 <!DOCTYPE html>
@@ -71,6 +62,9 @@
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
+
+        <!--adds the trash icon-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
         <!--Google Font: https://fonts.google.com/specimen/Smooch+Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,7 +122,7 @@
                     <input type="hidden" id="logout" name="logout" value="true"></input>
                     <input type="submit" id="logout_btn" value="Log Out" class="
                         bg-red-600 rounded-2xl 
-                        hover:bg-red-500 hover:outline hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
                         p-4"></input>
                 </form>
@@ -136,7 +130,7 @@
                 <!--Copied code from: https://www.w3schools.com/howto/howto_css_login_form.asp -->
                 <button id="login_button" onclick="document.getElementById('form_container').classList.remove('hidden')" class="
                         bg-green-600 rounded-2xl 
-                        hover:bg-green-500 hover:outline hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white
                         block float-right
                         text-2xl font-bold
                         p-4">
@@ -168,14 +162,14 @@
                         <input type="password" id="pswd" name="pswd" placeholder="Enter Password" required class="
                             w-full 
                             border outline-black rounded-2xl
-                            p-2">/input>
+                            p-2"></input>
                     </div>
                     <!--Buttons-->
                     <div class="flex justify-center">
                         <button type="submit" class="
                                 w-1/2
                                 bg-green-600 rounded-2xl 
-                                hover:bg-green-500 hover:outline hover:outline-2 hover:outline-black hover:text-white">
+                                hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white">
                             Login
                         </button>
                         <!--Hides login form when you click Cancel btn-->
@@ -183,7 +177,7 @@
                             onclick="document.getElementById('form_container').classList.add('hidden')" class="
                                 w-1/2
                                 bg-red-600 rounded-2xl 
-                                hover:bg-red-500 hover:outline hover:outline-2 hover:outline-black hover:text-white">
+                                hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white">
                             Cancel
                         </button>
                     </div>
@@ -211,7 +205,7 @@
                 <!--fuchsia color background with rounded edges, outline/bg color/text color changes on hover, padding of 5 and bottom margin of 10-->
                 <h1 id="hero_title" class="
                         bg-fuchsia-400 rounded-2xl 
-                        hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white 
+                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
                         text-6xl font-extrabold 
                         p-5 mb-10">
                     Book Review Blog
@@ -220,7 +214,7 @@
                 <!--If (screen takes up minimum of 1024px) {width = 4/5 of the container} else {width = 100%}-->
                 <p id="hero_text" class="
                         bg-fuchsia-400 rounded-2xl 
-                        hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white
                         text-4xl font-bold
                         w-full lg:w-4/5">
                     Hi! This is my book review blog spot.
@@ -260,7 +254,7 @@
                                 $output = <<<END
                                 <article id="{$key}" class="
                                         bg-indigo-500 rounded-2xl
-                                        hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white 
+                                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
                                         text-2xl font-bold 
                                         m-10">
                                     <h2 class="text-4xl font-bold underline decoration-solid">
@@ -279,11 +273,17 @@
                                     END;
                                 }
                                 $output .= PHP_EOL.'</article>'.PHP_EOL;
-                                
+                                //print out html for this iterations blog post (each post is its own <article>)
                                 echo $output;
                             }
                         }
+                        //logged_in_blog.js is used to change page appearance for logged in user
+                        //Activates JS file if your are logged in (determined by $_SESSION['is_logged_in']
+                        if(isset($_SESSION['is_logged_in'])){
+                            echo '<script src="js/logged_in_blog.js"></script>';
+                        }
                     ?>
+
                 </section>
                 <!--Aside Section-->
                 <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
@@ -296,7 +296,7 @@
                     <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
                     <div id="aside_list" class="
                             bg-indigo-500 rounded-2xl
-                            hover:bg-indigo-800 hover:outline hover:outline-2 hover:outline-black hover:text-white 
+                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
                             mx-10 lg:ml-0 lg:mr-10
                             pb-2">
                         <!--Aside Title: dashed line text decoration-->
@@ -308,22 +308,22 @@
                         <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
                         <!--Have fuchsia background with rounded edges, background color/text color/outline changes when you hover mouse-->
                         <div id="link1_container" class="mb-5">
-                            <a href="#post1" class="hover:outline hover:outline-2 hover:outline-black">
+                            <a href="#post1" class="hover:outline-2 hover:outline-black">
                                 Link to Post1
                             </a>
                         </div>
                         <div id="link2_container" class="mb-5">
-                            <a href="#post2" class="hover:outline hover:outline-2 hover:outline-black">
+                            <a href="#post2" class="hover:outline-2 hover:outline-black">
                                 Link to Post2
                             </a>
                         </div>
                         <div id="link3_container" class="mb-5">
-                            <a href="#post3" class="hover:outline hover:outline-2 hover:outline-black">
+                            <a href="#post3" class="hover:outline-2 hover:outline-black">
                                 Link to Post3
                             </a>
                         </div>
                         <div id="link4_container" class="mb-5">
-                            <a href="#post4" class="hover:outline hover:outline-2 hover:outline-black">
+                            <a href="#post4" class="hover:outline-2 hover:outline-black">
                                 Link to Post4
                             </a>
                         </div>

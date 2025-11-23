@@ -77,6 +77,12 @@ body{
         background-color:#DDD;
     }
 
+    /*displays nav bar in column when screen smaller than 1024px*/
+    @media screen and (max-width: 1024px) {
+        nav {
+            flex-direction: column;
+        }
+    }
 
 /*Scrollbar stuff*/
     ::-webkit-scrollbar {

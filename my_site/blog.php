@@ -21,7 +21,6 @@
 
         <!-- Option 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
         <!--Documentation for using Tailwind
             text decoration: https://v3.tailwindcss.com/docs/text-decoration-style#hover-focus-and-other-states
             font size: https://tailwindcss.com/docs/font-size
@@ -62,6 +61,68 @@
             <?php
                 $webpage->setNav();
             ?>
+        </div>
+
+        <div id="login_container" class="body_wrapper">
+            <!--Create a login button that will display a login form when clicked: https://www.w3schools.com/howto/howto_css_login_form.asp -->
+            <div id="login_button_container" class="pt-4 pr-4">
+                <button id="login_button"
+                    onclick="document.getElementById('form_container').classList.remove('hidden')"
+                    class="
+                        bg-green-600 rounded-2xl 
+                        hover:bg-green-500 hover:outline hover:outline-2 hover:outline-black hover:text-white
+                        block float-right
+                        text-2xl font-bold
+                        p-4">
+                    Login
+                </button>
+            </div>
+            <!--Hidden login form, uses post method-->
+            <div id="form_container" class="
+                hidden
+                fixed 
+                inset-0
+                flex items-center justify-center">
+                <form action="blog.php?page=blog.php" method="post" class="
+                    bg-white rounded-2xl
+                    p-10">
+                    <!--Password input-->
+                    <div class="mb-4">
+                        <label for="pswd" class="font-bold">Password</label>
+                        <input type="password" id="pswd" name="pswd" placeholder="Enter Password" required class="
+                        w-full 
+                        border outline-black rounded-2xl
+                        p-2">
+                    </div>
+                    <!-- Buttons -->
+                    <div class="flex justify-center">
+                        <button type="submit"
+                                class="
+                                w-1/2
+                                bg-green-600 rounded-2xl 
+                                hover:bg-green-500 hover:outline hover:outline-2 hover:outline-black hover:text-white">
+                        Login
+                        </button>
+                        <button type="button"
+                                onclick="document.getElementById('form_container').classList.add('hidden')"
+                                class="
+                                w-1/2
+                                bg-red-600 rounded-2xl 
+                                hover:bg-red-500 hover:outline hover:outline-2 hover:outline-black hover:text-white">
+                        Cancel
+                        </button>
+                        </div>
+                </form>
+            </div>
+            <script>
+                // Close login form when clicking outside
+                let form = document.getElementById('form_container');
+                window.onclick = function(event) {
+                    if (event.target == form) {
+                        form.classList.add('hidden');
+                    }
+                }
+            </script>
         </div>
 
         <div class="body_wrapper">

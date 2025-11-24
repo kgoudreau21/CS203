@@ -118,11 +118,13 @@
             align text center: https://tailwindcss.com/docs/text-align#centering-text
 
             flex: https://tailwindcss.com/docs/flex
+            flex wrap: https://tailwindcss.com/docs/flex-wrap
             align children in a col: https://tailwindcss.com/docs/flex-direction#column
-            center items along cross axis in flex: https://tailwindcss.com/docs/align-items#center
-            justify items along center of main axis: https://v3.tailwindcss.com/docs/justify-content#center 
+            center items along cross axis: https://tailwindcss.com/docs/align-items#center
+            justify items along center of main axis: https://v3.tailwindcss.com/docs/justify-content#center
+            justify content evenly: https://tailwindcss.com/docs/justify-content#space-evenly
 
-            float left: https://tailwindcss.com/docs/float#floating-elements-to-the-left
+            float: https://tailwindcss.com/docs/float
 
             colors: https://tailwindcss.com/docs/colors
             setup background color gradient: https://tailwindcss.com/docs/background-image#setting-gradient-color-stops
@@ -133,6 +135,8 @@
             mouse hover effects: https://tailwindcss.com/docs/hover-focus-and-other-states
 
             apply different styles according to screen size: https://v3.tailwindcss.com/docs/responsive-design
+
+            position element to fill parent: https://v3.tailwindcss.com/docs/top-right-bottom-left#placing-a-positioned-element
         -->
     </head>
     <!--Setup background to color gradient that changes from purple to fuschsia to pink-->
@@ -144,15 +148,19 @@
             ?>
         </div>
         <div class="body_wrapper">
-            <!--make all elements in this container float right so that they appear at top right of page (below nav bar)-->
-            <div id="login_button_container" class="pt-4 pr-4">
+            <!--Use flex, direction=(row-reverse), a gap of 4 btwn all items inside, and a padding of 4 around this div-->
+            <!--all elements inside have minimum width = (minimum-content)-->
+            <div id="login_button_container" class="
+                p-4 
+                flex flex-wrap flex-row-reverse gap-4">
                 <!--logout button: has its own form-->
-                <form id="logout_form" action="blog.php?page=blog.php" method="post" class="block float-right pl-4">
+                <form id="logout_form" action="blog.php?page=blog.php" method="post">
                     <input type="hidden" id="logout" name="logout" value="true"></input>
                     <input type="submit" id="logout_btn" value="Log Out" class="
                         bg-red-600 rounded-2xl 
                         hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
+                        w-min
                         p-4">
                     </input>
                 </form>
@@ -161,13 +169,13 @@
                 <button id="login_button" onclick="document.getElementById('form_container').classList.remove('hidden')" class="
                         bg-green-600 rounded-2xl 
                         hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white
-                        block float-right
                         text-2xl font-bold
+                        w-min
                         p-4">
                     Login
                 </button>
                 <!--section where all login/logout msgs are printed out-->
-                <div class="block float-right pr-4">
+                <div>
                     <?php
                         //Print out login msg if it is setup
                         if(isset($_POST['msg'])){
@@ -176,27 +184,31 @@
                     ?>
                 </div>
             </div>
-            <!--Hidden login form, appears when login button pressed-->
+            <!--Hidden login form container, appears when login button pressed-->
+            <!--Fixed postion in middle of screen-->
             <div id="form_container" class="
                     hidden
-                    fixed 
+                    fixed
                     inset-0
                     flex items-center justify-center">
                 <!--login form will send password back to this page using HTTP POST request-->
-                <form action="blog.php?page=blog.php" method="post" class="bg-white rounded-2xl p-10">
+                <form action="blog.php?page=blog.php" method="post" class="
+                        bg-white rounded-2xl
+                        p-10">
                     <!--Password input-->
                     <div class="mb-4">
                         <label for="pswd" class="font-bold">Password</label>
                         <input type="password" id="pswd" name="pswd" placeholder="Enter Password" required class="
-                            w-full 
+                            w-full
                             border outline-black rounded-2xl
                             p-2">
                         </input>
                     </div>                    
                     <!--Buttons-->
-                    <div class="flex justify-center">
+                    <div class="flex gap-4">
                         <button type="submit" class="
-                                w-1/2
+                                w-1/3
+                                p-4
                                 bg-green-600 rounded-2xl 
                                 hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white">
                             Login
@@ -204,7 +216,8 @@
                         <!--Hides login form when you click Cancel btn-->
                         <button type="button"
                             onclick="document.getElementById('form_container').classList.add('hidden')" class="
-                                w-1/2
+                                w-1/3
+                                p-4
                                 bg-red-600 rounded-2xl 
                                 hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white">
                             Cancel
@@ -262,13 +275,54 @@
             <!--Has a gradient background from fuchsia to pink, rounded edges-->
             <div id="row" class="
                     bg-gradient-to-b from-fuchsia-800 to-pink-500 rounded-2xl
-                    display-block
-                    text-3xl text-center justify-center
+                    text-3xl text-center
                     m-4">
-                <!--Main Section: float left-->
+                <!--Aside Section: top margin of 10(2.5 rem, 40px)-->
+                <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
+                <aside id="aside" class="
+                        float-right 
+                        w-full lg:w-1/4
+                        mt-10">
+                    <!--Aside List Section-->
+                    <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
+                    <div id="aside_list" class="
+                            bg-indigo-500 rounded-2xl
+                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
+                            mx-10 lg:ml-0 lg:mr-10
+                            pb-2">
+                        <!--Aside Title: dashed line text decoration-->
+                        <h1 id="aside_title" class="
+                                underline decoration-dashed
+                                text-6xl font-extrabold mb-5">
+                            Table of Contents
+                        </h1>
+                        <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
+                        <div id="link1_container" class="mb-5">
+                            <a href="#post1" class="hover:outline-2 hover:outline-black">
+                                Link to Post1
+                            </a>
+                        </div>
+                        <div id="link2_container" class="mb-5">
+                            <a href="#post2" class="hover:outline-2 hover:outline-black">
+                                Link to Post2
+                            </a>
+                        </div>
+                        <div id="link3_container" class="mb-5">
+                            <a href="#post3" class="hover:outline-2 hover:outline-black">
+                                Link to Post3
+                            </a>
+                        </div>
+                        <div id="link4_container" class="mb-5">
+                            <a href="#post4" class="hover:outline-2 hover:outline-black">
+                                Link to Post4
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+                <!--Main Section: float right-->
                 <!--If (screen takes up minimum of 1024px) {width = 3/4 of the container} else {width = 100%}-->
                 <section id="main" class="
-                        float-left
+                        float-right
                         w-full lg:w-3/4
                         text-3xl">
                     <!--php code for printing out blog posts-->
@@ -311,50 +365,7 @@
                             echo '<script src="js/logged_in_blog.js"></script>';
                         }
                     ?>
-
                 </section>
-                <!--Aside Section: top margin of 10(2.5 rem, 40px)-->
-                <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
-                <aside id="aside" class="
-                        float-left 
-                        w-full lg:w-1/4
-                        mt-10">
-                    <!--Aside List Section-->
-                    <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
-                    <div id="aside_list" class="
-                            bg-indigo-500 rounded-2xl
-                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                            mx-10 lg:ml-0 lg:mr-10
-                            pb-2">
-                        <!--Aside Title: dashed line text decoration-->
-                        <h1 id="aside_title" class="
-                                underline decoration-dashed
-                                text-6xl font-extrabold mb-5">
-                            Table of Contents
-                        </h1>
-                        <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
-                        <div id="link1_container" class="mb-5">
-                            <a href="#post1" class="hover:outline-2 hover:outline-black">
-                                Link to Post1
-                            </a>
-                        </div>
-                        <div id="link2_container" class="mb-5">
-                            <a href="#post2" class="hover:outline-2 hover:outline-black">
-                                Link to Post2
-                            </a>
-                        </div>
-                        <div id="link3_container" class="mb-5">
-                            <a href="#post3" class="hover:outline-2 hover:outline-black">
-                                Link to Post3
-                            </a>
-                        </div>
-                        <div id="link4_container" class="mb-5">
-                            <a href="#post4" class="hover:outline-2 hover:outline-black">
-                                Link to Post4
-                            </a>
-                        </div>
-                    </div>
-                </aside>
             </div>
         </div>
 

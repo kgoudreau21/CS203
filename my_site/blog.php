@@ -56,8 +56,11 @@
 
     function delete_post(){
         if(isset($_POST['posts'])){
+            //setup file path
+            $file = 'blog_posts.json';
+
             //Extract JSON object from file as a string: https://www.php.net/manual/en/function.file-get-contents.php
-            $current = file_get_contents('blog_posts.json');
+            $current = file_get_contents($file);
 
             //turn string into PHP associative array: https://www.w3schools.com/php/php_json.asp
             $current = json_decode($current, true);

@@ -12,7 +12,7 @@
 
         //set classes as ‘fa’ and ‘fa-trash’ and also other classes for tailwind CSS styling
         trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2', 'hover:outline-2', 'hover:outline-black', 'text-center'); 
-        
+
         //id = "trash_post#" (post# is the current iteration's element id)
         let id = 'trash_'+article.id;
 
@@ -29,9 +29,6 @@
         trash_btn.addEventListener("click", () => {
             //Create a window asking to confirm from user, if yes then proceed with deleting the post: https://www.w3schools.com/jsref/met_win_confirm.asp
             if(confirm("Are you sure?")){
-                //remove blog post from DOM
-                article.remove();
-
                 //get the id of the post we want to delete
                 let post_id = article.id;
 

@@ -14,7 +14,7 @@
         let id = 'trash_'+article.id;
 
         //set classes as ‘fa’ and ‘fa-trash’ and also other classes for tailwind CSS styling
-        trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2', 'm-2', 'hover:outline-2', 'hover:outline-black'); 
+        trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2', 'hover:outline-2', 'hover:outline-black', 'text-center'); 
 
         //Store id in DOM, Reference: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
         trash_btn.dataset.id = id; 

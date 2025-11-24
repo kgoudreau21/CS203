@@ -278,62 +278,62 @@
         </div>
 
         <!--Blog layout reference: https://www.w3schools.com/howto/howto_css_blog_layout.asp -->
-        <!--Using Float left to have 2 columns, Main Section will take up 3/4 of width, Aside will take 1/4-->
         <div class="body_wrapper">
             <!--Row Section: Contains the "Aside" and "Main" sections-->
-            <!--Has a gradient background from fuchsia to pink, rounded edges-->
+            <!--Uses flex, flex wrap, direction=(row-reverse), justify evenly for even gaps around all children-->
             <div id="row" class="
+                    flex flex-wrap flex-row-reverse justify-evenly
                     bg-gradient-to-b from-fuchsia-800 to-pink-500 rounded-2xl
-                    text-3xl text-center
-                    m-4">
-                <!--Aside Section: top margin of 10(2.5 rem, 40px)-->
+                    m-2">
+                <!--Aside Section Container: display in column, centered in middle along y-axis-->
                 <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
-                <aside id="aside" class="
-                        float-right 
+                <div id="aside_container" class="
+                        p-4
                         w-full lg:w-1/4
-                        mt-10">
-                    <!--Aside List Section-->
+                        flex-col items-center">
+                    <!--Aside Section: flex col-->
                     <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
-                    <div id="aside_list" class="
+                    <aside id="aside" class="
+                            text-3xl text-center
+                            p-4
+                            flex flex-col gap-4
                             bg-indigo-500 rounded-2xl
-                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                            mx-10 lg:ml-0 lg:mr-10
-                            pb-2">
+                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
                         <!--Aside Title: dashed line text decoration-->
                         <h1 id="aside_title" class="
                                 underline decoration-dashed
-                                text-6xl font-extrabold mb-5">
+                                text-6xl font-extrabold">
                             Table of Contents
                         </h1>
-                        <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
-                        <div id="link1_container" class="mb-5">
+                        <!--Link containers-->
+                        <div id="link1_container">
                             <a href="#post1" class="hover:outline-2 hover:outline-black">
                                 Link to Post1
                             </a>
                         </div>
-                        <div id="link2_container" class="mb-5">
+                        <div id="link2_container">
                             <a href="#post2" class="hover:outline-2 hover:outline-black">
                                 Link to Post2
                             </a>
                         </div>
-                        <div id="link3_container" class="mb-5">
+                        <div id="link3_container">
                             <a href="#post3" class="hover:outline-2 hover:outline-black">
                                 Link to Post3
                             </a>
                         </div>
-                        <div id="link4_container" class="mb-5">
+                        <div id="link4_container">
                             <a href="#post4" class="hover:outline-2 hover:outline-black">
                                 Link to Post4
                             </a>
                         </div>
-                    </div>
-                </aside>
-                <!--Main Section: float right-->
+                    </aside>
+                </div>
+                <!--Main Section: flex col-->
                 <!--If (screen takes up minimum of 1024px) {width = 3/4 of the container} else {width = 100%}-->
                 <section id="main" class="
-                        float-right
-                        w-full lg:w-3/4
-                        text-3xl">
+                        p-4
+                        flex flex-col gap-5
+                        w-full lg:w-3/4">
                     <!--php code for printing out blog posts-->
                     <?php
                         if(file_exists('blog_posts.json')){
@@ -344,21 +344,22 @@
                                 //Give all Blog Posts a margin of 10
                                 $output = <<<END
                                 <article id="{$key}" class="
-                                        bg-indigo-500 rounded-2xl
+                                        p-4
+                                        flex flex-col gap-4
+                                        bg-indigo-500 rounded-3xl
                                         hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                                        text-2xl font-bold 
-                                        m-10">
-                                    <h2 class="text-4xl font-bold underline decoration-solid">
+                                        text-2xl font-bold">
+                                    <h2 class="text-4xl text-center font-bold underline decoration-solid">
                                         {$value['title']}
                                     </h2>
-                                    <h3 class="text-3xl">
+                                    <h3 class="text-3xl text-center">
                                         {$value['author']}
                                     </h3>
                                 END;
                                 //Loop through paragraphs stored in array (give each a margin of 4)
                                 for ($i = 0; $i < count($value['paragraphs']); $i++) {
                                     $output .= <<<END
-                                        <p class="m-4">
+                                        <p>
                                             {$value['paragraphs'][$i]}
                                         </p>
                                     END;

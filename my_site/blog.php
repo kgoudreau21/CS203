@@ -22,7 +22,7 @@
             session_destroy();
             session_start();
             //setup successful log out msg
-            $_POST['msg']='<h3 class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">You have been successfully logged out!</h3>';
+            set_msg('You have been successfully logged out!', 0);
         }
     }
 
@@ -30,7 +30,7 @@
         if(isset($_SESSION['is_logged_in'])){
             if($_SESSION['is_logged_in']){
                 //setup already logged in msg
-                $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">'."You're already logged in!</p>";
+                set_msg("You're already logged in!", 0);
             }
         }
     }
@@ -46,10 +46,10 @@
                 $_SESSION['is_logged_in'] = true;
 
                 //setup login msg
-                $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">You have successfully logged in!</p>';
+                set_msg('You have successfully logged in!', 0);
             }else{
-                //setup wrong pswd msg
-                $_POST['msg']='<p class="text-red-600 text-2xl font-bold p-4 bg-white rounded-2xl">Error: Wrong Password Entered!</p>';
+                //setup wrong pswd error msg
+                set_msg('Error: Wrong Password Entered!', 1);
             }
         }
     }
@@ -74,8 +74,8 @@
             //Write the contents back to the file: https://www.php.net/manual/en/function.file-put-contents.php
             file_put_contents($file, $current);
 
-            //setup login msg
-            $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">Post has been deleted!</p>';
+            //setup successful post deletion msg
+            set_msg('Post has been deleted!', 0);
         }
     }
 ?>
@@ -177,9 +177,18 @@
                 <!--section where all login/logout msgs are printed out-->
                 <div>
                     <?php
-                        //Print out login msg if it is setup
+                        //Print out msg if it is setup
                         if(isset($_POST['msg'])){
                             echo $_POST['msg'];
+                        }
+
+                        //sets up msg
+                        function set_msg($string, $flag){
+                            if($flag){ //setup red error msg if $flag=1
+                                $_POST['msg'] = '<h3 class="text-red-600 text-2xl font-bold p-4 bg-white rounded-2xl">'.$string.'</h3>';
+                            }else{ //setup blue msg if $flag=0
+                                $_POST['msg'] = '<h3 class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">'.$string.'</h3>';
+                            }
                         }
                     ?>
                 </div>

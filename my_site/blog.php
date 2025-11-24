@@ -50,6 +50,17 @@
             }
         }
     }
+
+    //delete posts in json file blog_posts.json when you click delete btn
+    if(isset($_POST['posts'])){
+        //Overwrite contents blog_posts.json with $_POST['posts']
+        $my_file = fopen('blog_posts.json',"w");
+        fwrite($my_file, $_POST['posts']);
+        fclose($my_file);
+
+        //setup login msg
+        $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">Post has been deleted!</p>';
+    }
 ?>
 <!DOCTYPE html>
 <!--Scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling-->
@@ -163,8 +174,7 @@
                             w-full 
                             border outline-black rounded-2xl
                             p-2"></input>
-                    </div>
-                    <!--Buttons-->
+                    </div>                    <!--Buttons-->
                     <div class="flex justify-center">
                         <button type="submit" class="
                                 w-1/2

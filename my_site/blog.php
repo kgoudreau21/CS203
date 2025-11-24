@@ -4,9 +4,6 @@
 
     session_start();
 
-    //setup pswd hash
-    $pswd_hash = '13c74a37961a2f6c0833e5cbc32781a6c136d686604f13aeb056dcd44fb8329b';
-
     //verify logout request
     verify_logout();
 
@@ -14,11 +11,14 @@
     already_logged_in();
 
     //check pswd input for login
-    verify_pswd($pswd_hash);
+    verify_pswd();
+
+    //when you click delete btn: delete blog post specified in $_POST['posts'] from blog_posts.json
+    delete_post();
 
     function verify_logout(){
         if(isset($_POST['logout'])){
-            //reset $_SESSION['is_logged_in'] to null
+            //will reset $_SESSION['is_logged_in'] to null
             session_destroy();
             session_start();
             //setup successful log out msg
@@ -34,8 +34,11 @@
             }
         }
     }
-            
-    function verify_pswd($pswd_hash){
+
+    function verify_pswd(){
+        //setup pswd hash
+        $pswd_hash = '13c74a37961a2f6c0833e5cbc32781a6c136d686604f13aeb056dcd44fb8329b';
+
         //verify if the $_POST variable contains a password, then if password is correct you are logged in
         if(isset($_POST['pswd'])){
             if(hash('haval256,5', $_POST['pswd'])===$pswd_hash){
@@ -51,19 +54,33 @@
         }
     }
 
-    //delete posts in json file blog_posts.json when you click delete btn
-    if(isset($_POST['posts'])){
-        //Overwrite contents blog_posts.json with $_POST['posts']
-        $my_file = fopen('blog_posts.json',"w");
-        fwrite($my_file, $_POST['posts']);
-        fclose($my_file);
+    function delete_post(){
+        if(isset($_POST['posts'])){
+            //get filepath to json file storing blog posts
+            $file = 'blog_posts.json';
 
-        //setup login msg
-        $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">Post has been deleted!</p>';
+            //Extract JSON object from file as a string: https://www.php.net/manual/en/function.file-get-contents.php
+            $current = file_get_contents($file);
+
+            //turn string into PHP associative array: https://www.w3schools.com/php/php_json.asp
+            $current = json_decode($current, true);
+
+            //remove blog post from this associative array where key = $_POST['posts']: https://stackoverflow.com/questions/3053517/how-can-i-remove-a-key-and-its-value-from-an-associative-array
+            unset($current[$_POST['posts']]);
+
+            //encode associative array back to json format
+            $current = json_encode($current);
+
+            //Write the contents back to the file: https://www.php.net/manual/en/function.file-put-contents.php
+            file_put_contents($file, $current);
+
+            //setup login msg
+            $_POST['msg']='<p class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">Post has been deleted!</p>';
+        }
     }
 ?>
 <!DOCTYPE html>
-<!--Scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling-->
+<!--Scroll smooth effect for blog links: https://tailwindcss.com/docs/scroll-behavior#using-smooth-scrolling -->
 <html lang="en-US" class="scroll-smooth">
     <head>
         <title>Korey's Blog</title>
@@ -74,13 +91,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
 
-        <!--adds the trash icon-->
+        <!--adds the stylesheet for trash icon (classes: 'fas', 'fa-trash')-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
         <!--Google Font: https://fonts.google.com/specimen/Smooch+Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
+        <!--CSS Stylesheet applies font: "Smooch Sans" to all elements in Hero, Main, Aside sections-->
         <link rel="stylesheet"  type="text/css" href="css/blog_style.css">
 
         <!-- Option 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
@@ -91,10 +109,11 @@
             font weight: https://tailwindcss.com/docs/font-weight
 
             default spacing size: https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale
+            
             padding: https://tailwindcss.com/docs/padding
             margin: https://tailwindcss.com/docs/margin
             add vertical margin: https://tailwindcss.com/docs/margin#adding-vertical-margin
-            width of element: https://tailwindcss.com/docs/width
+            set width of element: https://tailwindcss.com/docs/width
 
             align text center: https://tailwindcss.com/docs/text-align#centering-text
 
@@ -111,10 +130,9 @@
             add border radius: https://tailwindcss.com/docs/border-radius
 
             create an outline on hover: https://tailwindcss.com/docs/outline-width
-
             mouse hover effects: https://tailwindcss.com/docs/hover-focus-and-other-states
 
-            CSS @media equivalent: https://v3.tailwindcss.com/docs/responsive-design
+            apply different styles according to screen size: https://v3.tailwindcss.com/docs/responsive-design
         -->
     </head>
     <!--Setup background to color gradient that changes from purple to fuschsia to pink-->
@@ -135,7 +153,8 @@
                         bg-red-600 rounded-2xl 
                         hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
-                        p-4"></input>
+                        p-4">
+                    </input>
                 </form>
                 <!--A login button that will display a login form when clicked-->
                 <!--Copied code from: https://www.w3schools.com/howto/howto_css_login_form.asp -->
@@ -147,7 +166,7 @@
                         p-4">
                     Login
                 </button>
-                <!--section where all login/logout msgs are printout out for user to see-->
+                <!--section where all login/logout msgs are printed out-->
                 <div class="block float-right pr-4">
                     <?php
                         //Print out login msg if it is setup
@@ -163,18 +182,18 @@
                     fixed 
                     inset-0
                     flex items-center justify-center">
-                <!--login form will pass pswd input back to this same page using POST method-->
-                <form action="blog.php?page=blog.php" method="post" class="
-                        bg-white rounded-2xl
-                        p-10">
+                <!--login form will send password back to this page using HTTP POST request-->
+                <form action="blog.php?page=blog.php" method="post" class="bg-white rounded-2xl p-10">
                     <!--Password input-->
                     <div class="mb-4">
                         <label for="pswd" class="font-bold">Password</label>
                         <input type="password" id="pswd" name="pswd" placeholder="Enter Password" required class="
                             w-full 
                             border outline-black rounded-2xl
-                            p-2"></input>
-                    </div>                    <!--Buttons-->
+                            p-2">
+                        </input>
+                    </div>                    
+                    <!--Buttons-->
                     <div class="flex justify-center">
                         <button type="submit" class="
                                 w-1/2
@@ -206,13 +225,13 @@
 
         <div class="body_wrapper">
             <!--Hero Section-->
-            <!--Using display flex in column direction, and center/justify items along y axis, center text, top and bottom margin of 56(14 rem or 224px using default spacing)-->
+            <!--Display child elements in column and centered, set top and bottom margin to 56(14rem,224px)-->
             <div id="hero" class="
                     text-center
                     flex flex-col items-center justify-center
                     my-56">
-                <!--Hero Section Title: text weight and font size extrabold-->
-                <!--fuchsia color background with rounded edges, outline/bg color/text color changes on hover, padding of 5 and bottom margin of 10-->
+                <!--Hero Section Title: big bold text-->
+                <!--padding to 5 and bottom margin to 10-->
                 <h1 id="hero_title" class="
                         bg-fuchsia-400 rounded-2xl 
                         hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
@@ -252,15 +271,14 @@
                         float-left
                         w-full lg:w-3/4
                         text-3xl">
-                    <!--Posts: all have margin of 10-->
                     <!--php code for printing out blog posts-->
                     <?php
                         if(file_exists('blog_posts.json')){
                             //extract json file storing posts
                             $posts=json_decode(file_get_contents('blog_posts.json'), true);
-                            //Loop through each post stored in json file dynamically
+                            //Loop through each post
                             foreach ($posts as $key => $value) {
-                                //add the post content to $output using heredoc: https://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc
+                                //Give all Blog Posts a margin of 10
                                 $output = <<<END
                                 <article id="{$key}" class="
                                         bg-indigo-500 rounded-2xl
@@ -274,7 +292,7 @@
                                         {$value['author']}
                                     </h3>
                                 END;
-                                // Loop through paragraphs of the current iteration $key
+                                //Loop through paragraphs stored in array (give each a margin of 4)
                                 for ($i = 0; $i < count($value['paragraphs']); $i++) {
                                     $output .= <<<END
                                         <p class="m-4">
@@ -283,21 +301,20 @@
                                     END;
                                 }
                                 $output .= PHP_EOL.'</article>'.PHP_EOL;
-                                //print out html for this iterations blog post (each post is its own <article>)
+                                //print out html for this iteration's blog post (each post in its own <article>)
                                 echo $output;
                             }
                         }
-                        //logged_in_blog.js is used to change page appearance for logged in user
                         //Activates JS file if your are logged in (determined by $_SESSION['is_logged_in']
+                        //Will change web page appearance
                         if(isset($_SESSION['is_logged_in'])){
                             echo '<script src="js/logged_in_blog.js"></script>';
                         }
                     ?>
 
                 </section>
-                <!--Aside Section-->
+                <!--Aside Section: top margin of 10(2.5 rem, 40px)-->
                 <!--If (screen takes up minimum of 1024px) {width = 1/4 of the container} else {width = 100%}-->
-                <!--float left, top margin of 10(2.5 rem, 40px)-->
                 <aside id="aside" class="
                         float-left 
                         w-full lg:w-1/4
@@ -316,7 +333,6 @@
                             Table of Contents
                         </h1>
                         <!--Link containers: have a bottom margin of 5(1.25rem, 20px)-->
-                        <!--Have fuchsia background with rounded edges, background color/text color/outline changes when you hover mouse-->
                         <div id="link1_container" class="mb-5">
                             <a href="#post1" class="hover:outline-2 hover:outline-black">
                                 Link to Post1

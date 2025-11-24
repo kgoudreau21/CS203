@@ -56,11 +56,8 @@
 
     function delete_post(){
         if(isset($_POST['posts'])){
-            //get filepath to json file storing blog posts
-            $file = 'blog_posts.json';
-
             //Extract JSON object from file as a string: https://www.php.net/manual/en/function.file-get-contents.php
-            $current = file_get_contents($file);
+            $current = file_get_contents('blog_posts.json');
 
             //turn string into PHP associative array: https://www.w3schools.com/php/php_json.asp
             $current = json_decode($current, true);
@@ -294,7 +291,7 @@
                     <!--Aside Section: flex col-->
                     <!--If (screen takes up minimum of 1024px) {margin right = 10, margin left = none} else {margin left and right = 10}-->
                     <aside id="aside" class="
-                            text-3xl text-center
+                            text-2xl text-center
                             p-4
                             flex flex-col gap-4
                             bg-indigo-500 rounded-2xl
@@ -305,27 +302,23 @@
                                 text-6xl font-extrabold">
                             Table of Contents
                         </h1>
-                        <!--Link containers-->
-                        <div id="link1_container">
-                            <a href="#post1" class="hover:outline-2 hover:outline-black">
-                                Link to Post1
-                            </a>
-                        </div>
-                        <div id="link2_container">
-                            <a href="#post2" class="hover:outline-2 hover:outline-black">
-                                Link to Post2
-                            </a>
-                        </div>
-                        <div id="link3_container">
-                            <a href="#post3" class="hover:outline-2 hover:outline-black">
-                                Link to Post3
-                            </a>
-                        </div>
-                        <div id="link4_container">
-                            <a href="#post4" class="hover:outline-2 hover:outline-black">
-                                Link to Post4
-                            </a>
-                        </div>
+                        <!--Generate links to all blog posts-->
+                        <?php
+                            //extract JSON as an associative array
+                            $posts=json_decode(file_get_contents('blog_posts.json'), true);
+
+                            //loop through each post in $posts and print out a link for each
+                            foreach ($posts as $key => $value) {
+                                $output = <<<END
+                                <div class="bg-white rounded-2xl">
+                                    <a id="{$key}_link" href="#{$key}">
+                                        {$value['title']}
+                                    </a>
+                                </div>
+                                END;
+                                echo $output.PHP_EOL;
+                            }
+                        ?>
                     </aside>
                 </div>
                 <!--Main Section: flex col-->
@@ -337,9 +330,7 @@
                     <!--php code for printing out blog posts-->
                     <?php
                         if(file_exists('blog_posts.json')){
-                            //extract json file storing posts
-                            $posts=json_decode(file_get_contents('blog_posts.json'), true);
-                            //Loop through each post
+                            //Loop through each post, using variable $posts declared previously in aside section code (line 308)
                             foreach ($posts as $key => $value) {
                                 //Give all Blog Posts a margin of 10
                                 $output = <<<END

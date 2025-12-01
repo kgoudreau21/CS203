@@ -1,3 +1,8 @@
+    //get "add_post" button
+    let add_post = document.getElementById("add_post");
+    //make "add_post" button visible for logged in user
+    add_post.classList.remove("hidden");
+    
     //get main section
     let main = document.getElementById("main");
 

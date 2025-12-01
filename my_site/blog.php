@@ -124,8 +124,6 @@
             justify items along center of main axis: https://v3.tailwindcss.com/docs/justify-content#center
             justify content evenly: https://tailwindcss.com/docs/justify-content#space-evenly
 
-            float: https://tailwindcss.com/docs/float
-
             colors: https://tailwindcss.com/docs/colors
             setup background color gradient: https://tailwindcss.com/docs/background-image#setting-gradient-color-stops
 
@@ -174,6 +172,16 @@
                         p-4">
                     Login
                 </button>
+                <!--add_post button, only visible to logged in user, redirects to new page-->
+                <form id="add_post" action="add_post.php?page=blog.php" method="post" class="hidden">
+                    <input type="submit" id="add_post_btn" value="Add Post" class="
+                        bg-blue-600 rounded-2xl 
+                        hover:bg-blue-500 hover:outline-2 hover:outline-black hover:text-white
+                        text-2xl font-bold
+                        w-min
+                        p-4">
+                    </input>
+                </form>
                 <!--section where all login/logout msgs are printed out-->
                 <div>
                     <?php

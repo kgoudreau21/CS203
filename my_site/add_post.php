@@ -23,7 +23,7 @@
         } else {
             $BASE_URL= $_SERVER['HTTP_HOST'];
         }
-        header('Location: http://' . $BASE_URL .  'blog.php');
+        header('Location: http://' . $BASE_URL .  'blog.php?page=blog.php');
     }
 
     //code adds new post to json file when submitted through HTTP POST request
@@ -106,6 +106,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
 
+        <!--prevent page resubmission from causing another duplicate post too be added-->
+        <script src="js/preventResubmission.js"></script>
+
         <!--Google Font: https://fonts.google.com/specimen/Smooch+Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,8 +146,8 @@
 
                 <legend class="
                         bg-fuchsia-400 rounded-3xl 
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                        p-5 mb-10">
+                        hover:bg-fuchsia-400
+                        p-4">
                     <h2 class="text-3xl font-extrabold">
                         Please Enter The Information for the Book Review You will be Posting:
                     </h2>
@@ -153,39 +156,39 @@
                 <div class="
                         p-4 gap-4
                         flex flex-col
-                        bg-indigo-500 rounded-3xl
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
+                        bg-indigo-500 rounded-3xl">
                     <label for="title" class="text-2xl font-bold underline decoration-solid">
                         Your Post's Title:
                     </label>
                     <input type="text" id="title" name="title" placeholder="Name of Your Book" required class="
-                        rounded-3xl outline-2 outline-black 
+                        rounded-3xl outline-2
+                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white
                         p-2">
                 </div>
 
                 <div class="
                         p-4 gap-4
                         flex flex-col
-                        bg-indigo-500 rounded-3xl
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
+                        bg-indigo-500 rounded-3xl">
                     <label for="subtitle" class="text-2xl font-bold underline decoration-solid">
                         Your Post's Subtitle:
                     </label>
                     <input type="text" id="subtitle" name="subtitle" placeholder="Your Book's Author" required class="
-                        rounded-3xl outline-2 outline-black 
+                        rounded-3xl outline-2
+                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white
                         p-2">
                 </div>
 
                 <div class="
                         p-4 gap-4
                         flex flex-col
-                        bg-indigo-500 rounded-3xl
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
+                        bg-indigo-500 rounded-3xl">
                     <label for="year" class="text-2xl font-bold underline decoration-solid">
                         Your Book's Publication Date:
                     </label>
                     <input type="number" id="year" name="year" min="0" max="2026" placeholder="Book's Publication Year" required class="
-                        rounded-3xl outline-2 outline-black 
+                        rounded-3xl outline-2
+                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white
                         p-2">
                 </div>
 
@@ -194,14 +197,13 @@
                         w-full
                         p-4 gap-4
                         flex flex-col
-                        bg-indigo-500 rounded-3xl
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
+                        bg-indigo-500 rounded-3xl">
                     <label for="review" class="text-2xl font-bold underline decoration-solid">
                         Your Review:
                     </label>
                     <!--Textarea element ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea -->
                     <!--Need to write everything in 1 line for placeholder text to appear, ref: https://stackoverflow.com/questions/10186913/html5-textarea-placeholder-not-appearing -->
-                    <textarea id="review" name="review" placeholder="Write Your Review Here" rows="10" required class="rounded-3xl outline-2 outline-black p-2"></textarea>
+                    <textarea id="review" name="review" placeholder="Write Your Review Here" rows="10" required class="rounded-3xl outline-2 hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white p-2"></textarea>
                 </div>
                 <div>
                     <input type="submit" id="create_post_btn" value="Create New Post" class="

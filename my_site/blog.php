@@ -90,6 +90,9 @@
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!--prevent page resubmission from causing another duplicate post deletion-->
+        <script src="js/preventResubmission.js"></script>
+
         <!--Optional Item 2: Style Navbar using Flexbox and @media-->
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
 
@@ -158,7 +161,7 @@
                     <input type="hidden" id="logout" name="logout" value="true"></input>
                     <input type="submit" id="logout_btn" value="Log Out" class="
                         bg-red-600 rounded-2xl 
-                        hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-red-400 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
                         w-min
                         p-4">
@@ -168,7 +171,7 @@
                 <!--Copied code from: https://www.w3schools.com/howto/howto_css_login_form.asp -->
                 <button id="login_button" onclick="document.getElementById('form_container').classList.remove('hidden')" class="
                         bg-green-600 rounded-2xl 
-                        hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-green-400 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
                         w-min
                         p-4">
@@ -178,7 +181,7 @@
                 <form id="add_post" action="add_post.php?page=blog.php" method="post" class="hidden">
                     <input type="submit" id="add_post_btn" value="Add Post" class="
                         bg-blue-600 rounded-2xl 
-                        hover:bg-blue-500 hover:outline-2 hover:outline-black hover:text-white
+                        hover:bg-blue-400 hover:outline-2 hover:outline-black hover:text-white
                         text-2xl font-bold
                         w-min
                         p-4">
@@ -229,7 +232,7 @@
                                 w-1/3
                                 p-4
                                 bg-green-600 rounded-2xl 
-                                hover:bg-green-500 hover:outline-2 hover:outline-black hover:text-white">
+                                hover:bg-green-400 hover:outline-2 hover:outline-black hover:text-white">
                             Login
                         </button>
                         <!--Hides login form when you click Cancel btn-->
@@ -238,7 +241,7 @@
                                 w-1/3
                                 p-4
                                 bg-red-600 rounded-2xl 
-                                hover:bg-red-500 hover:outline-2 hover:outline-black hover:text-white">
+                                hover:bg-red-400 hover:outline-2 hover:outline-black hover:text-white">
                             Cancel
                         </button>
                     </div>
@@ -305,8 +308,7 @@
                             text-2xl text-center
                             p-4
                             flex flex-col gap-4
-                            bg-indigo-500 rounded-2xl
-                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white">
+                            bg-indigo-500 rounded-2xl">
                         <!--Aside Title: dashed line text decoration-->
                         <h1 id="aside_title" class="
                                 underline decoration-dashed
@@ -321,7 +323,7 @@
                             //loop through each post in $posts and print out a link for each
                             foreach ($posts as $key => $value) {
                                 $output = <<<END
-                                <div class="bg-white rounded-2xl">
+                                <div class="bg-white rounded-2xl hover:outline-2 hover:outline-black">
                                     <a id="{$key}_link" href="#{$key}">
                                         {$value['title']}
                                     </a>

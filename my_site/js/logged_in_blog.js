@@ -1,9 +1,3 @@
-    //prevent page resubmission from causing another duplicate post deletion
-    //copied code from: https://stackoverflow.com/questions/6320113/how-to-prevent-form-resubmission-when-page-is-refreshed-f5-ctrlr
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-    console.log('hi');
     //get "add_post" button
     let add_post = document.getElementById("add_post");
     //make "add_post" button visible for logged in user
@@ -16,13 +10,13 @@
     //using query selector all: https://www.w3schools.com/jsref/met_document_queryselectorall.asp
     let posts = main.querySelectorAll("article");
 
-    //Loop through each blog post(<article>) inside "main" and append a <div> element(a btn to remove post) to it
+    //Loop through each blog post(<article>) inside "main" and append a <button> element(a btn to remove post) to it
     posts.forEach((article) => {
-        // Create a new div element
-        let trash_btn = document.createElement("div");
+        // Create a new button element
+        let trash_btn = document.createElement("button");
 
         //set classes ‘fa’ and ‘fa-trash’ (which adds a trash icon) and other classes for tailwind CSS styling
-        trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2', 'hover:outline-2', 'hover:outline-black', 'text-center'); 
+        trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2','hover:bg-red-400', 'hover:outline-2', 'hover:outline-black', 'w-min'); 
 
         //id = "trash_post#" (post# is the current iteration's element id)
         let id = 'trash_'+article.id;
@@ -31,7 +25,7 @@
         trash_btn.dataset.id = id; 
         
         //add text content to trash_btn
-        trash_btn.textContent = "REMOVE POST";
+        trash_btn.textContent = "Delete";
         
         // Append the new element inside the article
         article.appendChild(trash_btn);

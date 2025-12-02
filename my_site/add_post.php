@@ -26,73 +26,79 @@
         header('Location: http://' . $BASE_URL .  'blog.php?page=blog.php');
     }
 
-    //code adds new post to json file when submitted through HTTP POST request
-    if(isset($_POST['title'])){
-        //$output is where all the new post's content will be stored before appending to json file
-        $output = [
-            //Get today's date, ref: https://www.w3schools.com/php/php_date.asp
-            'post_date'=>date("Y/m/d"),
-            //trim leading and trailing whitespace, ref: https://www.php.net/manual/en/function.trim.php
-            //htmlentities() protects against code injection
-            'title'=>trim(htmlentities($_POST['title'])),
-            //author contains string of format: "Subtitle, Year"
-            'author'=>trim(htmlentities($_POST['subtitle'].', '.$_POST['year'])),
-            //paragraphs is an empty array (for now)
-            'paragraphs'=>[]];
+    //Code runs if Form was submitted through HTTP POST request
+    if(isset($_POST['save_flag'])){
+        //code adds new post to json file when $_POST['save_flag'] === '0' (string = '0' is default value)
+        if($_POST['save_flag'] === '0'){
+            //$output is where all the user's submitted input is stored
+            $output = [
+                //Get today's date, ref: https://www.w3schools.com/php/php_date.asp
+                'post_date'=>date("Y/m/d"),
+                //trim leading and trailing whitespace, ref: https://www.php.net/manual/en/function.trim.php
+                //htmlentities() protects against code injection
+                'title'=>trim(htmlentities($_POST['title'])),
+                //author contains string of format: "Subtitle, Year"
+                'author'=>trim(htmlentities($_POST['subtitle'].', '.$_POST['year'])),
+                //paragraphs is an empty array (for now)
+                'paragraphs'=>[]];
 
-        //get <textarea> input as string from POST Request
-        $text = $_POST['review'];
+            //get <textarea> input as string from POST Request
+            $text = $_POST['review'];
 
-        //protect against code injection
-        $text = htmlentities($text);
+            //protect against code injection
+            $text = htmlentities($text);
 
-        //Need to split string into multiple smaller strings, 1 for each paragraph
-        //copied code from: https://stackoverflow.com/questions/17673342/explode-text-into-array-as-per-paragraph
-        //Returns an array containing substrings of subject split along boundaries matched by pattern, ref: https://www.php.net/preg-split
-        //pattern that seperates paragraphs: at least 2 "\r\n" (windows newline) or "\n" (linux newline), ref: https://www.geeksforgeeks.org/php/whats-the-difference-between-n-and-rn-in-php/
-        //{2,} means at least 2, ref: https://www.w3schools.com/php/php_regex.asp
-        $text = preg_split('/(\r\n|\n){2,}/', $text);
-        
-        //add each string in $text into the array in $output['paragraphs']
-        foreach($text as $paragraph){
-            $output['paragraphs'][]=$paragraph;
-        }
-
-        //extract JSON as an associative array
-        $posts=json_decode(file_get_contents('blog_posts.json'), true);
-
-        //this array will contain all the # from each post saved in json file (each post is in an array with key = post#)
-        $postNumbers = [];
-
-        //trying to find what # our new post will have, 
-        //copied cdoe from: https://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
-        $expected = 1;
-        foreach($posts as $key => $value){
-            //extract the number from "post#", ref: https://www.php.net/manual/en/function.preg-replace.php
-            //convert string to int using typecasting: https://www.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting
-            $number = (int) preg_replace('/post/', '', $key);
-
-            //add the current post's # to array
-            $postNumbers[] = $number;
-
-            if ($expected == $number){
-                $expected++;
+            //Need to split string into multiple smaller strings, 1 for each paragraph
+            //copied code from: https://stackoverflow.com/questions/17673342/explode-text-into-array-as-per-paragraph
+            //Returns an array containing substrings of subject split along boundaries matched by pattern, ref: https://www.php.net/preg-split
+            //pattern that seperates paragraphs: at least 2 "\r\n" (windows newline) or "\n" (linux newline), ref: https://www.geeksforgeeks.org/php/whats-the-difference-between-n-and-rn-in-php/
+            //{2,} means at least 2, ref: https://www.w3schools.com/php/php_regex.asp
+            $text = preg_split('/(\r\n|\n){2,}/', $text);
+            
+            //add each string in $text into the array in $output['paragraphs']
+            foreach($text as $paragraph){
+                $output['paragraphs'][]=$paragraph;
             }
+
+            //extract JSON as an associative array
+            $posts=json_decode(file_get_contents('blog_posts.json'), true);
+
+            //this array will contain all the # from each post saved in json file (each post is in an array with key = post#)
+            $postNumbers = [];
+
+            //trying to find what # our new post will have, 
+            //copied cdoe from: https://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
+            $expected = 1;
+            foreach($posts as $key => $value){
+                //extract the number from "post#", ref: https://www.php.net/manual/en/function.preg-replace.php
+                //convert string to int using typecasting: https://www.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting
+                $number = (int) preg_replace('/post/', '', $key);
+
+                //add the current post's # to array
+                $postNumbers[] = $number;
+
+                if ($expected == $number){
+                    $expected++;
+                }
+            }
+
+            //add our new post to the associative array with key = post# (# found previously in $expected)
+            foreach($output as $key => $value){
+                $posts['post'.$expected][$key] = $value;
+            }
+
+            //encode associative array back to json format
+            $posts = json_encode($posts);
+
+            //Write the contents back to the json file
+            file_put_contents('blog_posts.json', $posts);
+
+            //set msg for user that post has been successfully submitted
+            set_msg('Your Post has Been Successfully Submitted!');
+        } else if($_POST['save_flag'] === '1'){ //If $_POST['save_flag'] set to 1 then the save_draft button was pressed
+            //set msg for user that draft has been successfully saved
+            set_msg('Your Draft has Been Successfully Saved!');
         }
-
-        //add our new post to the associative array with key = post# (# found previously in $expected)
-        foreach($output as $key => $value){
-            $posts['post'.$expected][$key] = $value;
-        }
-
-        //encode associative array back to json format
-        $posts = json_encode($posts);
-
-        //Write the contents back to the json file
-        file_put_contents('blog_posts.json', $posts);
-
-        //set msg for user that post has been successfully submitted
-        set_msg('Your Post has Been Successfully Submitted!');
     }
 ?>
 <!DOCTYPE html>
@@ -213,6 +219,18 @@
                         w-min
                         p-4">
                     </input>
+                    <!--Hidden input, ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/hidden -->
+                    <input type="hidden" id="save_flag" name="save_flag" value="0">
+                    <!--Save Button for Optional Part 5 a)-->
+                    <input type="submit" id="save_draft" value="Save Draft" class="
+                        bg-blue-600 rounded-2xl 
+                        hover:bg-blue-400 hover:outline-2 hover:outline-black hover:text-white
+                        text-2xl font-bold
+                        w-min
+                        p-4">
+                    </input>
+                    <!--JS file adds a onclick event to the "save_draft" button, if clicked will change the value of the hidden input: "save_flag" to 1-->
+                    <script src="js/save_post_draft.js"></script>
                 </div>
             </form>
         </div>

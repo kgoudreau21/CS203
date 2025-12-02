@@ -108,41 +108,8 @@
 
         <!-- Optional Item 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <!--Documentation for using Tailwind
-            text decoration: https://v3.tailwindcss.com/docs/text-decoration-style#hover-focus-and-other-states
-            font size: https://tailwindcss.com/docs/font-size
-            font weight: https://tailwindcss.com/docs/font-weight
-
-            default spacing size: https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale
-            
-            padding: https://tailwindcss.com/docs/padding
-            margin: https://tailwindcss.com/docs/margin
-            add vertical margin: https://tailwindcss.com/docs/margin#adding-vertical-margin
-            set width of element: https://tailwindcss.com/docs/width
-
-            align text center: https://tailwindcss.com/docs/text-align#centering-text
-
-            flex: https://tailwindcss.com/docs/flex
-            flex wrap: https://tailwindcss.com/docs/flex-wrap
-            align children in a col: https://tailwindcss.com/docs/flex-direction#column
-            center items along cross axis: https://tailwindcss.com/docs/align-items#center
-            justify items along center of main axis: https://v3.tailwindcss.com/docs/justify-content#center
-            justify content evenly: https://tailwindcss.com/docs/justify-content#space-evenly
-
-            colors: https://tailwindcss.com/docs/colors
-            setup background color gradient: https://tailwindcss.com/docs/background-image#setting-gradient-color-stops
-
-            add border radius: https://tailwindcss.com/docs/border-radius
-
-            create an outline on hover: https://tailwindcss.com/docs/outline-width
-            mouse hover effects: https://tailwindcss.com/docs/hover-focus-and-other-states
-
-            apply different styles according to screen size: https://v3.tailwindcss.com/docs/responsive-design
-
-            position element to fill parent: https://v3.tailwindcss.com/docs/top-right-bottom-left#placing-a-positioned-element
-        -->
     </head>
-    <!--Setup background to color gradient that changes from purple to fuschsia to pink-->
+    <!--Setup background to color gradient that changes from purple to fuschsia to pink, ref: https://tailwindcss.com/docs/background-image#setting-gradient-color-stops-->
     <body class="bg-gradient-to-b from-purple-800 via-fuchsia-500 to-pink-500">
         <div class="body_wrapper">
             <!--Nav Section-->
@@ -154,8 +121,8 @@
             <!--Use flex, direction=(row-reverse), a gap of 4 btwn all items inside, and a padding of 4 around this div-->
             <!--all elements inside have minimum width = (minimum-content)-->
             <div id="login_button_container" class="
-                p-4 
-                flex flex-wrap flex-row-reverse gap-4">
+                    p-4
+                    flex flex-wrap flex-row-reverse gap-4">
                 <!--logout button: has its own form-->
                 <form id="logout_form" action="blog.php?page=blog.php" method="post">
                     <input type="hidden" id="logout" name="logout" value="true"></input>

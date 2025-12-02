@@ -21,3 +21,22 @@
         //set save_flag to '1' (string)
         flag.value = '1';
     });
+
+
+    //When "create_post_btn" pressed, it deletes 'draft' from localStorage
+    document.getElementById("create_post_btn").addEventListener("click", () => {
+        //When "create_post_btn" pressed, it deletes 'draft' from localStorage
+        localStorage.removeItem("draft");
+    });
+
+
+    //retrieve value associated to key="draft" (JSON string) from local Storage, if it doesn't exist, then set empty string
+    //ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    let draft = JSON.parse(localStorage.getItem("draft")||[]);
+
+    if(draft.length !== 0){ //if draft is NOT an empty string
+        //loop over each key value pair saved in the JSON string
+        for(i in draft){
+            document.getElementById(i).value = draft[i];
+        }
+    }

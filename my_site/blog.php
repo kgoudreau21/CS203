@@ -76,6 +76,9 @@
 
             //setup successful post deletion msg
             set_msg('Post has been deleted!', 0);
+
+            //unset delete flag to null to prevent repeat deletion on page refresh
+            $_POST['posts'] = null;
         }
     }
 ?>
@@ -317,7 +320,7 @@
                         <?php
                             //extract JSON as an associative array
                             $posts=json_decode(file_get_contents('blog_posts.json'), true);
-
+                            
                             //loop through each post in $posts and print out a link for each
                             foreach ($posts as $key => $value) {
                                 $output = <<<END

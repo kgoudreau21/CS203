@@ -25,6 +25,75 @@
         }
         header('Location: http://' . $BASE_URL .  'blog.php');
     }
+
+    //code adds new post to json file when submitted through HTTP POST request
+    if(isset($_POST['title'])){
+        //$output is where all the new post's content will be stored before appending to json file
+        $output = [
+            //Get today's date, ref: https://www.w3schools.com/php/php_date.asp
+            'post_date'=>date("Y/m/d"),
+            //trim leading and trailing whitespace, ref: https://www.php.net/manual/en/function.trim.php
+            //htmlentities() protects against code injection
+            'title'=>trim(htmlentities($_POST['title'])),
+            //author contains string of format: "Subtitle, Year"
+            'author'=>trim(htmlentities($_POST['subtitle'].', '.$_POST['year'])),
+            //paragraphs is an empty array (for now)
+            'paragraphs'=>[]];
+
+        //get <textarea> input as string from POST Request
+        $text = $_POST['review'];
+
+        //protect against code injection
+        $text = htmlentities($text);
+
+        //Need to split string into multiple smaller strings, 1 for each paragraph
+        //copied code from: https://stackoverflow.com/questions/17673342/explode-text-into-array-as-per-paragraph
+        //Returns an array containing substrings of subject split along boundaries matched by pattern, ref: https://www.php.net/preg-split
+        //pattern that seperates paragraphs: at least 2 "\r\n" (windows newline) or "\n" (linux newline), ref: https://www.geeksforgeeks.org/php/whats-the-difference-between-n-and-rn-in-php/
+        //{2,} means at least 2, ref: https://www.w3schools.com/php/php_regex.asp
+        $text = preg_split('/(\r\n|\n){2,}/', $text);
+        
+        //add each string in $text into the array in $output['paragraphs']
+        foreach($text as $paragraph){
+            $output['paragraphs'][]=$paragraph;
+        }
+
+        //extract JSON as an associative array
+        $posts=json_decode(file_get_contents('blog_posts.json'), true);
+
+        //this array will contain all the # from each post saved in json file (each post is in an array with key = post#)
+        $postNumbers = [];
+
+        //trying to find what # our new post will have, 
+        //copied cdoe from: https://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
+        $expected = 1;
+        foreach($posts as $key => $value){
+            //extract the number from "post#", ref: https://www.php.net/manual/en/function.preg-replace.php
+            //convert string to int using typecasting: https://www.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting
+            $number = (int) preg_replace('/post/', '', $key);
+
+            //add the current post's # to array
+            $postNumbers[] = $number;
+
+            if ($expected == $number){
+                $expected++;
+            }
+        }
+
+        //add our new post to the associative array with key = post# (# found previously in $expected)
+        foreach($output as $key => $value){
+            $posts['post'.$expected][$key] = $value;
+        }
+
+        //encode associative array back to json format
+        $posts = json_encode($posts);
+
+        //Write the contents back to the json file
+        file_put_contents('blog_posts.json', $posts);
+
+        //set msg for user that post has been successfully submitted
+        set_msg('Your Post has Been Successfully Submitted!');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -46,9 +115,6 @@
 
         <!-- Option 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-        <!--Link to javascript code for Form Validation-->
-        <script src="js/postValidation.js"></script>
     </head>
     <body class="bg-gradient-to-b from-purple-800 via-fuchsia-500 to-pink-500">
         <div class="body_wrapper">
@@ -59,9 +125,22 @@
 
         <div class="body_wrapper">
             <!--Form to Add a New Post-->
-            <form id="create_post" action="" method="post" class="
+            <form id="create_post" action="add_post.php?page=blog.php" method="post" class="
                     flex flex-col items-center justify-center gap-4
+                    text-center
                     m-4">
+                <?php
+                    //Print out msg if it is setup
+                    if(isset($_POST['msg'])){
+                        echo $_POST['msg'];
+                    }
+
+                    //sets up msg
+                    function set_msg($string){    
+                        $_POST['msg'] = '<h3 class="text-blue-600 text-2xl font-bold p-4 bg-white rounded-2xl">'.$string.'</h3>';
+                    }
+                ?>
+
                 <legend class="
                         bg-fuchsia-400 rounded-3xl 
                         hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
@@ -79,7 +158,9 @@
                     <label for="title" class="text-2xl font-bold underline decoration-solid">
                         Your Post's Title:
                     </label>
-                    <input type="text" id="title" name="title" placeholder="Name of Your Book">
+                    <input type="text" id="title" name="title" placeholder="Name of Your Book" required class="
+                        rounded-3xl outline-2 outline-black 
+                        p-2">
                 </div>
 
                 <div class="
@@ -90,7 +171,9 @@
                     <label for="subtitle" class="text-2xl font-bold underline decoration-solid">
                         Your Post's Subtitle:
                     </label>
-                    <input type="text" id="subtitle" name="subtitle" placeholder="Your Book's Author">
+                    <input type="text" id="subtitle" name="subtitle" placeholder="Your Book's Author" required class="
+                        rounded-3xl outline-2 outline-black 
+                        p-2">
                 </div>
 
                 <div class="
@@ -101,11 +184,14 @@
                     <label for="year" class="text-2xl font-bold underline decoration-solid">
                         Your Book's Publication Date:
                     </label>
-                    <input type="number" id="year" name="year" placeholder="Book's Publication Year">
+                    <input type="number" id="year" name="year" min="0" max="2026" placeholder="Book's Publication Year" required class="
+                        rounded-3xl outline-2 outline-black 
+                        p-2">
                 </div>
 
-                <!--reff: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea -->
+                <!--Made the width=100% (w-full using tailwind) so that <textarea> can have (width = form width)--->
                 <div class="
+                        w-full
                         p-4 gap-4
                         flex flex-col
                         bg-indigo-500 rounded-3xl
@@ -113,7 +199,9 @@
                     <label for="review" class="text-2xl font-bold underline decoration-solid">
                         Your Review:
                     </label>
-                    <textarea id="review" name="review" placeholder="Write Your Review Here" rows="10" cols="75" maxlength="1000"></textarea>
+                    <!--Textarea element ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea -->
+                    <!--Need to write everything in 1 line for placeholder text to appear, ref: https://stackoverflow.com/questions/10186913/html5-textarea-placeholder-not-appearing -->
+                    <textarea id="review" name="review" placeholder="Write Your Review Here" rows="10" required class="rounded-3xl outline-2 outline-black p-2"></textarea>
                 </div>
                 <div>
                     <input type="submit" id="create_post_btn" value="Create New Post" class="

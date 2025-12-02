@@ -1,3 +1,9 @@
+    //prevent page resubmission from causing another duplicate post deletion
+    //copied code from: https://stackoverflow.com/questions/6320113/how-to-prevent-form-resubmission-when-page-is-refreshed-f5-ctrlr
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    
     //get "add_post" button
     let add_post = document.getElementById("add_post");
     //make "add_post" button visible for logged in user

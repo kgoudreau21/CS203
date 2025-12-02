@@ -92,6 +92,8 @@
         <meta name="keywords" content="HTML, CSS, Javascript, PHP, Blog">
         <meta name="author" content="Korey Goudreau">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Optional Item 2: Style Navbar using Flexbox and @media-->
         <link rel="stylesheet" type="text/css" href="css/my_style.css">
 
         <!--adds the stylesheet for trash icon (classes: 'fas', 'fa-trash')-->
@@ -104,7 +106,7 @@
         <!--CSS Stylesheet applies font: "Smooch Sans" to all elements in Hero, Main, Aside sections-->
         <link rel="stylesheet"  type="text/css" href="css/blog_style.css">
 
-        <!-- Option 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
+        <!-- Optional Item 1b) Using Tailwind Play CDN for CSS Styling: https://tailwindcss.com/docs/installation/play-cdn -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <!--Documentation for using Tailwind
             text decoration: https://v3.tailwindcss.com/docs/text-decoration-style#hover-focus-and-other-states

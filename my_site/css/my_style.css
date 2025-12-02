@@ -51,7 +51,7 @@ body{
     }
 
 
-/*<nav> menu, Option 2 of Lab10*/
+/*<nav> menu, Optional Item 2 of Lab10*/
     .current_page { /*class assigned to website currently on*/
         background-color: cyan;
     }

@@ -76,9 +76,6 @@
 
             //setup successful post deletion msg
             set_msg('Post has been deleted!', 0);
-
-            //unset delete flag to null to prevent repeat deletion on page refresh
-            $_POST['posts'] = null;
         }
     }
 ?>
@@ -225,7 +222,7 @@
                             border outline-black rounded-2xl
                             p-2">
                         </input>
-                    </div>                    
+                    </div>
                     <!--Buttons-->
                     <div class="flex gap-4">
                         <button type="submit" class="
@@ -268,8 +265,7 @@
                 <!--Hero Section Title: big bold text-->
                 <!--padding to 5 and bottom margin to 10-->
                 <h1 id="hero_title" class="
-                        bg-fuchsia-400 rounded-2xl 
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
+                        bg-fuchsia-400 rounded-2xl
                         text-6xl font-extrabold 
                         p-5 mb-10">
                     Book Review Blog
@@ -277,8 +273,7 @@
                 <!--Hero Section Text-->
                 <!--If (screen takes up minimum of 1024px) {width = 4/5 of the container} else {width = 100%}-->
                 <p id="hero_text" class="
-                        bg-fuchsia-400 rounded-2xl 
-                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white
+                        bg-fuchsia-400 rounded-2xl
                         text-4xl font-bold
                         w-full lg:w-4/5">
                     Hi! This is my book review blog spot.
@@ -348,33 +343,41 @@
                         if(file_exists('blog_posts.json')){
                             //Loop through each post, using variable $posts declared previously in aside section code (line 308)
                             foreach ($posts as $key => $value) {
-                                //Give all Blog Posts a margin of 10
+                                //Optional Part 3 b): Make content collapsible
+                                //The title is a button, when clicked will show the post's content that is in a "hidden" <div>
                                 $output = <<<END
                                 <article id="{$key}" class="
                                         p-4
                                         flex flex-col gap-4
-                                        bg-indigo-500 rounded-3xl
-                                        hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                                        text-2xl font-bold">
-                                    <h2 class="text-4xl text-center font-bold underline decoration-solid">
+                                        bg-fuchsia-400 rounded-3xl
+                                        font-bold">
+                                    <button class="
+                                            collapsible
+                                            text-4xl text-center
+                                            bg-indigo-500 rounded-3xl
+                                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
+                                            underline decoration-solid">
                                         {$value['title']}
-                                    </h2>
-                                    <h3 class="text-3xl text-center">
-                                        {$value['author']}
-                                    </h3>
+                                    </button>
+                                    <div class="hidden flex flex-col gap-4">
+                                        <h3 class="text-3xl text-center">
+                                            {$value['author']}
+                                        </h3>
                                 END;
                                 //Loop through paragraphs stored in array (give each a margin of 4)
                                 for ($i = 0; $i < count($value['paragraphs']); $i++) {
                                     $output .= <<<END
-                                        <p>
+                                        <p class="text-2xl">
                                             {$value['paragraphs'][$i]}
                                         </p>
                                     END;
                                 }
-                                $output .= PHP_EOL.'</article>'.PHP_EOL;
+                                $output .= PHP_EOL.'</div></article>'.PHP_EOL;
                                 //print out html for this iteration's blog post (each post in its own <article>)
                                 echo $output;
                             }
+                            //Optional Part 3 b)
+                            echo '<script src="js/collapsible_content.js"></script>';
                         }
                         //Activates JS file if your are logged in (determined by $_SESSION['is_logged_in']
                         //Will change web page appearance

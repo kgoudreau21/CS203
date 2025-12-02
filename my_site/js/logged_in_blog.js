@@ -3,7 +3,7 @@
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
-    
+    console.log('hi');
     //get "add_post" button
     let add_post = document.getElementById("add_post");
     //make "add_post" button visible for logged in user
@@ -21,7 +21,7 @@
         // Create a new div element
         let trash_btn = document.createElement("div");
 
-        //set classes as ‘fa’ and ‘fa-trash’ and also other classes for tailwind CSS styling
+        //set classes ‘fa’ and ‘fa-trash’ (which adds a trash icon) and other classes for tailwind CSS styling
         trash_btn.classList.add('fas', 'fa-trash', 'bg-red-600', 'rounded-2xl', 'p-2', 'hover:outline-2', 'hover:outline-black', 'text-center'); 
 
         //id = "trash_post#" (post# is the current iteration's element id)

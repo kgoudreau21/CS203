@@ -299,6 +299,23 @@
                                 echo $output.PHP_EOL;
                             }
                         ?>
+                        <!--Part 9 a) :add a sort by date or by title feature -->
+                        <form action="blog.php?page=blog.php" method="get" class="
+                                text-2xl text-center
+                                p-4
+                                flex flex-col gap-4">
+                            <legend class="text-6xl font-extrabold underline decoration-dashed">
+                                Sort Posts:
+                            </legend>
+                            <input id="sortingOrder" name="sortingOrder" type="hidden"></input>
+                            <input type="submit" onclick="sortPostsByDate()" value="Sort Posts by Date" class="
+                                    bg-white rounded-2xl hover:outline-2 hover:outline-black">
+                            </input>
+                            <input type="submit" onclick="sortPostsByTitle()" value="Sort Posts by Title" class="
+                                    bg-white rounded-2xl hover:outline-2 hover:outline-black">
+                            </input>
+                        </form>
+                        <script src="js/sortPosts.js"></script>
                     </aside>
                 </div>
                 <!--Main Section: flex col-->

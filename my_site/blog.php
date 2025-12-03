@@ -286,6 +286,27 @@
                         <?php
                             //extract JSON as an associative array
                             $posts=json_decode(file_get_contents('blog_posts.json'), true);
+
+                            //Optional Part9 a), sort by date or title if specified in $_GET['sortingOrder']
+                            //copied code from: https://www.php.net/manual/en/function.asort.php#105797
+                            if(isset($_GET['sortingOrder'])){
+                                if($_GET['sortingOrder']==='byDate'){ //sorting dates in form Y-M-D
+                                    // Define the custom sort function
+                                    function custom_sort($a,$b) {
+                                        return $a['post_date']>$b['post_date'];
+                                    }
+                                    // Sort the multidimensional array
+                                    usort($posts, "custom_sort");
+                                }
+                                if($_GET['sortingOrder']==='byTitle'){ //sorting by title in alphabetical order
+                                    // Define the custom sort function
+                                    function custom_sort($a,$b) {
+                                        return $a['title']>$b['title'];
+                                    }
+                                    // Sort the multidimensional array
+                                    usort($posts, "custom_sort");
+                                }
+                            }
                             
                             //loop through each post in $posts and print out a link for each
                             foreach ($posts as $key => $value) {
@@ -330,7 +351,7 @@
                     <!--php code for printing out blog posts-->
                     <?php
                         if(file_exists('blog_posts.json')){
-                            //Loop through each post, using variable $posts declared previously in aside section code (line 308)
+                            //Loop through each post, using variable $posts declared previously in aside section code
                             foreach ($posts as $key => $value) {
                                 //Optional Part 3 b): Make content collapsible
                                 //The title is a button, when clicked will show the post's content that is in a "hidden" <div>

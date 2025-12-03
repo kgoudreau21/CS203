@@ -299,15 +299,18 @@
                                 echo $output.PHP_EOL;
                             }
                         ?>
-                        <!--Part 9 a) :add a sort by date or by title feature -->
-                        <form action="blog.php?page=blog.php" method="get" class="
+                        <!--Part 9 a) :add a sort by date or by title feature-->
+                        <!--When a button is pressed, a GET request is sent to blog.php with $_GET[sortingOrder] set to "byDate" or "byTitle"-->
+                        <form action="blog.php" method="get" class="
                                 text-2xl text-center
                                 p-4
                                 flex flex-col gap-4">
                             <legend class="text-6xl font-extrabold underline decoration-dashed">
                                 Sort Posts:
                             </legend>
+                            <!--hidden input will contain the order of the posts-->
                             <input id="sortingOrder" name="sortingOrder" type="hidden"></input>
+                            <input id="page" name="page" type="hidden" value="blog.php"></input>
                             <input type="submit" onclick="sortPostsByDate()" value="Sort Posts by Date" class="
                                     bg-white rounded-2xl hover:outline-2 hover:outline-black">
                             </input>

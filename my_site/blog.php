@@ -322,11 +322,15 @@
                                         font-bold">
                                     <button class="
                                             collapsible
-                                            text-4xl text-center
+                                            flex flex-wrap justify-center items-center gap-4
                                             bg-indigo-500 rounded-3xl
-                                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
-                                            underline decoration-solid">
-                                        {$value['title']}
+                                            hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white ">
+                                        <h2 class="underline decoration-solid text-4xl">
+                                            {$value['title']}
+                                        </h2>
+                                        <h3 class="text-3xl">
+                                            Posted: {$value['post_date']}
+                                        </h3>
                                     </button>
                                     <div class="hidden flex flex-col gap-4">
                                         <h3 class="text-3xl text-center">

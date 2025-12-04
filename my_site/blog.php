@@ -2,6 +2,16 @@
     include_once("php/nav.php");
     require_once("php/config.php");
 
+    /*
+    All optional Items:
+    #1 b): Using tailwind
+    #2 using flexbox for <nav>
+    #3 b): Each blog post is "collapsible"
+    #5 a) Save draft using button in "add_post.php"
+    #7 Added a comment section in the bottom of this page
+    #9 a) Add a sort Posts by Date or Title feature to blog posts
+    */
+
     session_start();
 
     //verify logout request

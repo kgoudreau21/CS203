@@ -16,6 +16,43 @@
     //when you click delete btn: delete blog post specified in $_POST['posts'] from blog_posts.json
     delete_post();
 
+    //Optional Item 7: Adding Comment Posted using POST Request
+    if(isset($_POST['name'])){
+        //The following is copied/pasted code I already wrote in "add_post.php"
+        //proper documentation will be found in "add_post.php"
+        $output = [
+            //Get today's date
+            'comment_date'=>date("Y/m/d"),
+            //name of comment poster (default is "anomymous")
+            'name'=>trim(htmlentities($_POST['name'])),
+            //text content of comment that was submitted
+            'comment_text'=>[]];
+        $text = $_POST['comment_text'];
+        $text = htmlentities($text);
+        $text = preg_split('/(\r\n|\n){2,}/', $text);
+        foreach($text as $paragraph){
+            $output['paragraphs'][]=$paragraph;
+        }
+        $comments=json_decode(file_get_contents('blog_comments.json'), true);
+        $commentNumbers = [];
+        $expected = 1;
+        foreach($comments as $key => $value){
+            $number = (int) preg_replace('/comment/', '', $key);
+            $commentNumber[] = $number;
+            if ($expected == $number){
+                $expected++;
+            }
+        }
+        foreach($output as $key => $value){
+            $comments['comment'.$expected][$key] = $value;
+        }
+        $comments = json_encode($comments);
+        file_put_contents('blog_comments.json', $comments);
+
+        //set msg for user that comment has been successfully submitted
+        set_msg('Your Comment has Been Successfully Submitted!', 0);
+    }
+
     function verify_logout(){
         if(isset($_POST['logout'])){
             //will reset $_SESSION['is_logged_in'] to null

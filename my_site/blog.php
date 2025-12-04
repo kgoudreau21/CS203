@@ -31,16 +31,18 @@
         $text = htmlentities($text);
         $text = preg_split('/(\r\n|\n){2,}/', $text);
         foreach($text as $paragraph){
-            $output['paragraphs'][]=$paragraph;
+            $output['comment_text'][]=$paragraph;
         }
         $comments=json_decode(file_get_contents('blog_comments.json'), true);
         $commentNumbers = [];
         $expected = 1;
-        foreach($comments as $key => $value){
-            $number = (int) preg_replace('/comment/', '', $key);
-            $commentNumber[] = $number;
-            if ($expected == $number){
-                $expected++;
+        if(isset($comments)){
+            foreach($comments as $key => $value){
+                $number = (int) preg_replace('/comment/', '', $key);
+                $commentNumber[] = $number;
+                if ($expected == $number){
+                    $expected++;
+                }
             }
         }
         foreach($output as $key => $value){
@@ -471,7 +473,7 @@
                                 Enter your Name
                             </label>
                             <!--name input is optional, if not entered then value set to "anonymous"-->
-                            <input id="name" name="name" type="text" default="anonymous" placeholder="(optional)" class="
+                            <input id="name" name="name" type="text" value="anonymous" class="
                                 rounded-3xl outline-2 
                                 hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
                                 p-2">
@@ -497,7 +499,46 @@
                         flex flex-col gap-5
                         w-full lg:w-3/4">
                     <!--php code for printing out all comments-->
-                    
+                    <?php
+                        //Code copied from Main Section
+                        $comments=json_decode(file_get_contents('blog_comments.json'), true);
+
+                        if(isset($comments)){
+                            foreach ($comments as $key => $value) {
+                                //Optional Part 3 b): Make content collapsible
+                                //The title is a button, when clicked will show the post's content that is in a "hidden" <div>
+                                $output = <<<END
+                                <article id="{$key}" class="
+                                        p-4
+                                        flex flex-col gap-4
+                                        bg-fuchsia-400 rounded-3xl
+                                        font-bold">
+                                    <button class="
+                                            flex flex-wrap justify-center items-center gap-4
+                                            bg-indigo-500 rounded-3xl">
+                                        <h2 class="underline decoration-solid text-4xl">
+                                            {$value['name']}
+                                        </h2>
+                                        <h3 class="text-3xl">
+                                            Posted: {$value['comment_date']}
+                                        </h3>
+                                    </button>
+                                    <div class="flex flex-col gap-4">
+                                END;
+                                //Loop through paragraphs stored in array (give each a margin of 4)
+                                for ($i = 0; $i < count($value['comment_text']); $i++) {
+                                    $output .= <<<END
+                                        <p class="text-2xl">
+                                            {$value['comment_text'][$i]}
+                                        </p>
+                                    END;
+                                }
+                                $output .= PHP_EOL.'</div></article>'.PHP_EOL;
+                                //print out html for this iteration's blog post (each post in its own <article>)
+                                echo $output;
+                            }
+                        }
+                    ?>
                 </section>
             </div>
         </div>

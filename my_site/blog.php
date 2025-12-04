@@ -257,9 +257,9 @@
 
         <!--Blog layout reference: https://www.w3schools.com/howto/howto_css_blog_layout.asp -->
         <div class="body_wrapper">
-            <!--Row Section: Contains the "Aside" and "Main" sections-->
+            <!--Row1 Section: Contains the "Aside" and "Main" sections-->
             <!--Uses flex, flex wrap, direction=(row-reverse), justify evenly for even gaps around all children-->
-            <div id="row" class="
+            <div id="row1" class="
                     flex flex-wrap flex-row-reverse justify-evenly
                     bg-gradient-to-b from-fuchsia-800 to-pink-500 rounded-2xl
                     m-2">
@@ -399,6 +399,68 @@
                             echo '<script src="js/logged_in_blog.js"></script>';
                         }
                     ?>
+                </section>
+            </div>
+        </div>
+
+        <!--Optional Part 7: comment Section-->
+        <div class="body_wrapper">
+            <!--Row2 Section: Contains the "post_comment" and "comment" sections-->
+            <!--Uses same layout as "row1" section above but mirrored-->
+            <div id="row2" class="
+                    flex flex-wrap justify-evenly
+                    bg-gradient-to-b from-fuchsia-800 to-pink-500 rounded-2xl
+                    m-2">
+                <!--post_comment Section Container-->
+                <div id="post_comment_container" class="
+                        p-4
+                        w-full lg:w-1/4
+                        flex-col items-center">
+                        <!--post_comment Section, will send POST Request containing comment to post-->
+                        <form id="post_comment" action="blog.php?page=blog.php" method="post" class="
+                                text-2xl
+                                p-4
+                                flex flex-col gap-4 content-start
+                                bg-fuchsia-400 rounded-2xl">
+                            <!--post_comment Section Title-->
+                            <legend class="
+                                    text-center
+                                    underline decoration-dashed
+                                    text-4xl font-extrabold">
+                                Post Your Comment:
+                            </legend>
+                            <label for="name" class="
+                                    text-2xl font-bold underline decoration-solid">
+                                Enter your Name
+                            </label>
+                            <!--name input is optional, if not entered then value set to "anonymous"-->
+                            <input id="name" name="name" type="text" default="anonymous" placeholder="(optional)" class="
+                                rounded-3xl outline-2 
+                                hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white 
+                                p-2">
+                            </input>
+                            <label for="comment_text" class="
+                                    text-2xl font-bold underline decoration-solid">
+                                Write Your Comment:
+                            </label>
+                            <textarea id="comment_text" name="comment_text" rows="10" required class="rounded-3xl outline-2 hover:bg-indigo-800 hover:outline-2 hover:outline-black hover:text-white p-2"></textarea>
+                            <input type="submit" id="post_comment_btn" name="post_comment_btn" value="Post Comment" class="
+                                bg-blue-600 rounded-2xl 
+                                hover:bg-blue-400 hover:outline-2 hover:outline-black hover:text-white
+                                text-2xl font-bold
+                                w-min
+                                p-4">
+                            </input>
+                        </form>
+                    </aside>
+                </div>
+                <!--Comment Section-->
+                <section id="comment" class="
+                        p-4
+                        flex flex-col gap-5
+                        w-full lg:w-3/4">
+                    <!--php code for printing out all comments-->
+                    
                 </section>
             </div>
         </div>
